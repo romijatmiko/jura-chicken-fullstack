@@ -1,22 +1,22 @@
 [
 	{
-		nama_menu: "Nike Go FlyEase",
-		harga_menu: "/images/LIFESTYLE/11da0526-2657-4e9d-8bfe-efe59661a6f9.png",
+		nama_menu: "Paket Hemat Jura 9Pcs Ayam",
+		harga_menu: 75000,
 		stock: 15,
 		created_on: now(),
 		updated_on: now(),
 		deskripsi:
-			"Buang talinya dan keluar. Tendangan ini menampilkan teknologi FlyEase revolusioner Nike, membuat on-and-off menjadi mudah. Dengan tumit yang berporos terbuka untuk entri yang benar-benar bebas genggam, sepatu ini cocok untuk orang dengan mobilitas terbatas—atau siapa saja yang menginginkan cara yang lebih cepat untuk memulai.",
-		numReviews: 0,
+			"9 pcs ayam goreng JuraChicken's. Tersedia dalam pilihan Ayam Krispy, Spicy atau spesial (campuran krispy & spicy.",
+		img: "/img/kfc-web_9pc-bucket-_t.png",
 	},
 	{
-		name: "Nike Go FlyEase",
-		image: "/images/LIFESTYLE/879db1d0-b43a-4ee1-89b0-814d66e83638.png",
-		description:
-			"Nike Go FlyEase : Tepat ketika Anda mengira telah melihat semuanya, Nike memukau dengan cara baru untuk masuk ke sepatu Anda dengan cepat dan mudah. Sangat cocok untuk orang dengan mobilitas terbatas yang mencari kemudahan masuk, atau siapa pun yang menginginkan cara yang lebih cepat untuk masuk dan pergi! Seluruh tumit (termasuk sol) pivot Nike Go FlyEase terbuka untuk entri yang benar-benar bebas genggam. ",
-		price: 311,
-		countInStock: 10,
-		rating: 0,
-		numReviews: 0,
+		nama_menu: "Burger Deluxe With Max Cheese",
+		harga_menu: 23500,
+		stock: 15,
+		created_on: now(),
+		updated_on: now(),
+		deskripsi:
+			"Burger Deluxe With Max Cheese, Murah Meriah Hangat, Daging Tebal With Max Cheese.",
+		img: "/img/kfc-web_burger-deluxe_t.png",
 	},
 ];
