@@ -1,5 +1,4 @@
 const bcrypt = require("bcryptjs");
-
 const pool = require("../../db/dbpool");
 
 module.exports = (httpRequest, httpResponse) => {

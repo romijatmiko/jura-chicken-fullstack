@@ -12,7 +12,7 @@ module.exports = (httpRequest, httpResponse) => {
         created_on,
         updated_on,
         deskripsi,
-        img,
+        img
       )
       VALUES(
         $1,
