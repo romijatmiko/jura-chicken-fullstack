@@ -1,6 +1,6 @@
 CREATE TABLE user_jura (
 	user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	username VARCHAR ( 50 ) UNIQUE NOT NULL,
+	username_user VARCHAR ( 50 ) UNIQUE NOT NULL,
 	password_user VARCHAR ( 50 ) NOT NULL,
 	email_user VARCHAR ( 255 ) UNIQUE NOT NULL,
 	created_on TIMESTAMP NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE user_jura (
 
 CREATE TABLE admin_jura (
  	admin_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	username VARCHAR ( 50 ) UNIQUE NOT NULL,
+	username_admin VARCHAR ( 50 ) UNIQUE NOT NULL,
 	password_admin VARCHAR ( 50 ) NOT NULL,
 	email_admin VARCHAR ( 255 ) UNIQUE NOT NULL,
 	created_on TIMESTAMP NOT NULL,
