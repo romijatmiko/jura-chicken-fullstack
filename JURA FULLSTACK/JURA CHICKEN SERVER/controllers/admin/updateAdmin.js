@@ -4,9 +4,9 @@ module.exports = (httpRequest, httpResponse) => {
 	const hashedPassword = bcrypt.hashSync(httpRequest.body.password_admin, 8);
 	pool.query(
 		`
-      UPDATE user_jura
+      UPDATE admin_jura
       SET 
-        username = $1,
+        username_admin = $1,
         password_admin = $2,
         email_admin = $3,
         created_on = $4,
@@ -14,7 +14,7 @@ module.exports = (httpRequest, httpResponse) => {
       WHERE admin_id = $6
     `,
 		[
-			httpRequest.body.username,
+			httpRequest.body.username_admin,
 			hashedPassword,
 			httpRequest.body.email_admin,
 			httpRequest.body.created_on,

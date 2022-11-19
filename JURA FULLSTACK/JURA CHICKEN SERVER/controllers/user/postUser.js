@@ -7,7 +7,7 @@ module.exports = (httpRequest, httpResponse) => {
 	pool.query(
 		`
       INSERT INTO user_jura(
-        username,
+        username_user,
         password_user,
         email_user,
         created_on,
@@ -22,7 +22,7 @@ module.exports = (httpRequest, httpResponse) => {
       )
     `,
 		[
-			httpRequest.body.username,
+			httpRequest.body.username_user,
 			hashedPassword,
 			httpRequest.body.email_user,
 			httpRequest.body.created_on,

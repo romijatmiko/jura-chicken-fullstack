@@ -6,7 +6,7 @@ module.exports = (httpRequest, httpResponse) => {
 		`
       UPDATE user_jura
       SET 
-        username = $1,
+        username_user = $1,
         password_user = $2,
         email_user = $3,
         created_on = $4,
@@ -14,7 +14,7 @@ module.exports = (httpRequest, httpResponse) => {
       WHERE user_id = $6
     `,
 		[
-			httpRequest.body.username,
+			httpRequest.body.username_user,
 			hashedPassword,
 			httpRequest.body.email_user,
 			httpRequest.body.created_on,
