@@ -8,7 +8,7 @@ module.exports = (httpRequest, httpResponse) => {
       SELECT * FROM admin_jura
       WHERE admin_id = $1 
     `,
-		[httpRequest.params.id],
+		[httpRequest.params.admin_id],
 		(dbError, dbResponse) => {
 			if (dbError) throw dbError;
 

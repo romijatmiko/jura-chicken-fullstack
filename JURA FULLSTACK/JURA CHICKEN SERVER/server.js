@@ -4,9 +4,10 @@ const dotenv = require("dotenv");
 const { Client } = require("pg");
 // const jwt = require('jsonwebtoken')
 
-const user = require("./api/user/getAllUser");
-const admin = require("./api/admin/getAllAdmin");
-const menu = require("./api/menu/getAllMenu");
+const indexRoutes = require("./routes/index");
+const userRoutes = require("./routes/user");
+const adminRoutes = require("./routes/admin");
+const menuRoutes = require("./routes/menu");
 
 require("dotenv").config();
 const client = new Client();
@@ -25,7 +26,10 @@ app.use(
 
 app.use(express.json());
 
-app.use("/user", user);
+app.use("", indexRoutes);
+app.use("/user", userRoutes);
+app.use("/admin", adminRoutes);
+app.use("/menu", menuRoutes);
 
 app.listen(port, () => {
 	console.log(`JuraServer berjalan di port ${port} `);

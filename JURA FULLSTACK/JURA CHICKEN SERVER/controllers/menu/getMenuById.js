@@ -5,10 +5,10 @@ module.exports = (httpRequest, httpResponse) => {
 
 	pool.query(
 		`
-      SELECT * FROM user_jura
-      WHERE user_id = $1 
+      SELECT * FROM menu
+      WHERE id_menu = $1 
     `,
-		[httpRequest.params.user_id],
+		[httpRequest.params.id_menu],
 		(dbError, dbResponse) => {
 			if (dbError) throw dbError;
 
