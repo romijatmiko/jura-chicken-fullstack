@@ -3,37 +3,31 @@ const bcrypt = require("bcryptjs");
 const pool = require("../../db/dbpool");
 
 module.exports = (httpRequest, httpResponse) => {
-	const hashedPassword = bcrypt.hashSync(httpRequest.body.passwd, 8);
+	const hashedPassword = bcrypt.hashSync(httpRequest.body.password_user, 8);
 
 	pool.query(
 		`
-      INSERT INTO app.warga(
-        nik,
-        nama,
-        passwd,
-        alamat,
-        rt,
-        rw,
-        kode_kelurahan
+      INSERT INTO user_jura(
+        username,
+        password_user,
+        email_user,
+        created_on,
+        last_login,
       )
       VALUES(
         $1,
         $2,
         $3,
         $4,
-        $5,
-        $6,
-        $7
+        $5
       )
     `,
 		[
-			httpRequest.body.nik,
-			httpRequest.body.nama,
+			httpRequest.body.username,
 			hashedPassword,
-			httpRequest.body.alamat,
-			httpRequest.body.rt,
-			httpRequest.body.rw,
-			httpRequest.body.kode_kelurahan,
+			httpRequest.body.email_user,
+			httpRequest.body.created_on,
+			httpRequest.body.last_login,
 		],
 		(dbError, dbResponse) => {
 			if (dbError) throw dbError;

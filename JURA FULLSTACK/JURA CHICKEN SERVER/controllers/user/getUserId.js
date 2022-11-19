@@ -6,7 +6,7 @@ module.exports = (httpRequest, httpResponse) => {
 	pool.query(
 		`
       SELECT * FROM user_jura
-      WHERE id = $1 
+      WHERE user_id = $1 
     `,
 		[httpRequest.params.id],
 		(dbError, dbResponse) => {
