@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs");
+
 const pool = require("../../db/dbpool");
 
 module.exports = (httpRequest, httpResponse) => {
 	const hashedPassword = bcrypt.hashSync(httpRequest.body.password_user, 8);
-
 	pool.query(
 		`
       INSERT INTO user_jura(
@@ -11,7 +11,7 @@ module.exports = (httpRequest, httpResponse) => {
         password_user,
         email_user,
         created_on,
-        last_login,
+        last_login
       )
       VALUES(
         $1,

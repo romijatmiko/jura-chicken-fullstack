@@ -1,7 +1,7 @@
 CREATE TABLE user_jura (
 	user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	username_user VARCHAR ( 50 ) UNIQUE NOT NULL,
-	password_user VARCHAR ( 50 ) NOT NULL,
+	username_user VARCHAR ( 128 ) UNIQUE NOT NULL,
+	password_user VARCHAR ( 128 ) NOT NULL,
 	email_user VARCHAR ( 255 ) UNIQUE NOT NULL,
 	created_on TIMESTAMP NOT NULL,
     last_login TIMESTAMP 
@@ -9,8 +9,8 @@ CREATE TABLE user_jura (
 
 CREATE TABLE admin_jura (
  	admin_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-	username_admin VARCHAR ( 50 ) UNIQUE NOT NULL,
-	password_admin VARCHAR ( 50 ) NOT NULL,
+	username_admin VARCHAR ( 128 ) UNIQUE NOT NULL,
+	password_admin VARCHAR ( 128 ) NOT NULL,
 	email_admin VARCHAR ( 255 ) UNIQUE NOT NULL,
 	created_on TIMESTAMP NOT NULL,
     last_login TIMESTAMP 
@@ -18,13 +18,13 @@ CREATE TABLE admin_jura (
 
 CREATE TABLE menu (
   id_menu uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  nama_menu varchar(30) NOT NULL,
-  harga_menu varchar(30) NOT NULL,
+  nama_menu varchar(128) NOT NULL,
+  harga_menu varchar(128) NOT NULL,
   stok INT NOT NULL,
 	created_on TIMESTAMP NOT NULL,
   updated_on TIMESTAMP NOT NULL,
   deskripsi Text NOT NULL,
-  img VARCHAR ( 50 ) NOT NULL
+  img VARCHAR ( 128 ) NOT NULL
 );
 
 CREATE TABLE menu_favorit (
@@ -43,7 +43,7 @@ CREATE TABLE menu_favorit (
 CREATE TABLE kategori_menu (
  id_kategori uuid DEFAULT uuid_generate_v4(),
   id_menu uuid NOT NULL,
-  nama_kategori VARCHAR ( 50 ) NOT NULL,
+  nama_kategori VARCHAR ( 128 ) NOT NULL,
   PRIMARY KEY (id_kategori,id_menu),
   FOREIGN KEY (id_menu)
       REFERENCES menu (id_menu)
