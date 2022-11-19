@@ -11,7 +11,8 @@ module.exports = (httpRequest, httpResponse) => {
         created_on = $4,
         updated_on = $5,
         deskripsi = $6
-      WHERE id_menu = $7
+        img = $7
+      WHERE id_menu = $8
     `,
 		[
 			httpRequest.body.nama_menu,
@@ -20,6 +21,7 @@ module.exports = (httpRequest, httpResponse) => {
 			httpRequest.body.created_on,
 			httpRequest.body.updated_on,
 			httpRequest.body.deskripsi,
+			httpRequest.body.img,
 			httpRequest.params.id_menu,
 		],
 		(dbError, dbResponse) => {

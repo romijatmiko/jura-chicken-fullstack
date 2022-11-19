@@ -23,7 +23,8 @@ CREATE TABLE menu (
   stok INT NOT NULL,
 	created_on TIMESTAMP NOT NULL,
   updated_on TIMESTAMP NOT NULL,
-  deskripsi Text NOT NULL
+  deskripsi Text NOT NULL,
+  img VARCHAR ( 50 ) NOT NULL
 );
 
 CREATE TABLE menu_favorit (

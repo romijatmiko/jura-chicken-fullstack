@@ -12,6 +12,7 @@ module.exports = (httpRequest, httpResponse) => {
         created_on,
         updated_on,
         deskripsi,
+        img,
       )
       VALUES(
         $1,
@@ -19,7 +20,8 @@ module.exports = (httpRequest, httpResponse) => {
         $3,
         $4,
         $5,
-        $6
+        $6,
+        $7
       )
     `,
 		[
@@ -28,7 +30,8 @@ module.exports = (httpRequest, httpResponse) => {
 			httpRequest.body.stok,
 			httpRequest.body.created_on,
 			httpRequest.body.updated_on,
-			deskripsi,
+			httpRequest.body.deskripsi,
+			httpRequest.body.img,
 		],
 		(dbError, dbResponse) => {
 			if (dbError) throw dbError;
