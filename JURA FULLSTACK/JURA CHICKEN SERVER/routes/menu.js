@@ -3,14 +3,14 @@ const router = express.Router();
 
 const addMenu = require("../controllers/menu/postMenu");
 const getAllMenu = require("../controllers/menu/getAllMenu");
-const getMenuById = require("../controllers/menu/");
-const updateMenu = require("../controllers/user/updateUser");
-const deleteMenu = require("../controllers/user/deleteUser");
+const getMenuById = require("../controllers/menu/getMenuById");
+const updateMenu = require("../controllers/menu/updateMenu");
+const deleteMenu = require("../controllers/menu/deleteMenu");
 
-router.post("/add", addUser);
-router.get("/get", getAllUser);
-router.get("/add/:id([0-9a-z-]+)", getUserById);
-router.put("/update/:id([0-9a-z-]+)", updateUser);
-router.delete("/delete/:id([0-9a-z-]+)", deteleUser);
+router.post("/add", addMenu);
+router.get("/get", getAllMenu);
+router.get("/get/:id([0-9a-z-]+)", getMenuById);
+router.put("/update/:id([0-9a-z-]+)", updateMenu);
+router.delete("/delete/:id([0-9a-z-]+)", deleteMenu);
 
 module.exports = router;

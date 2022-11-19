@@ -9,7 +9,7 @@ const deteleUser = require("../controllers/user/deleteUser");
 
 router.post("/add", addUser);
 router.get("/get", getAllUser);
-router.get("/add/:id([0-9a-z-]+)", getUserById);
+router.get("/get/:id([0-9a-z-]+)", getUserById);
 router.put("/update/:id([0-9a-z-]+)", updateUser);
 router.delete("/delete/:id([0-9a-z-]+)", deteleUser);
 
