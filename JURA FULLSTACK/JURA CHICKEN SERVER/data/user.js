@@ -1,4 +1,4 @@
-[
+
 	{
 		username_jura: "user",
 		password_user: "123",
@@ -20,4 +20,4 @@
 		created_on: "$now()",
 		last_login: "$now()",
 	},
-];
+
