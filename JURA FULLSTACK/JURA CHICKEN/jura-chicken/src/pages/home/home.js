@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { Menus } from "../../components/menu/menu";
 import { API_URL } from "../../components/url/url";
 import axios from "axios";
 import { NavbarJura } from "../../components/navbarj";
-import { Footer } from "../../components/footer";
+import { FooterJura } from "../../components/FooterJura";
+import { Menus } from "../../components/menus/menu";
 
 export default class Home extends Component {
 	constructor(props) {
@@ -16,7 +16,7 @@ export default class Home extends Component {
 
 	componentDidMount() {
 		axios
-			.get(API_URL + "menu")
+			.get(API_URL + "/menu/get")
 			.then((res) => {
 				const menus = res.data;
 				this.setState({ menus });
@@ -44,7 +44,7 @@ export default class Home extends Component {
 						</Col>
 					</Container>
 				</div>
-				<Footer />
+				<FooterJura />
 			</div>
 		);
 	}
