@@ -8,6 +8,12 @@ import {
 } from "mdb-react-ui-kit";
 
 function App() {
+	const [token, setToken] = useState();
+
+	if (!token) {
+		return <Login setToken={setToken} />;
+	}
+
 	return (
 		<MDBContainer className="p-3 my-5 d-flex flex-column w-50">
 			<MDBBtn className="mb-4" color="danger">
