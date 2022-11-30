@@ -6,7 +6,7 @@ const { Client } = require("pg");
 const indexRoutes = require("./routes/index");
 const userRoutes = require("./routes/user");
 const adminRoutes = require("./routes/admin");
-const menuRoutes = require("./routes/menu");
+const menuRoutes = require("./routes/menuRoute");
 
 require("dotenv").config();
 const client = new Client();
