@@ -5,7 +5,7 @@ import Users from "./userModels";
 const { DataTypes } = Sequelize;
 
 const Menus = db.define(
-	"jura_menu",
+	"keranjang",
 	{
 		uuid: {
 			type: DataTypes.STRING,
@@ -23,19 +23,10 @@ const Menus = db.define(
 				len: [3, 100],
 			},
 		},
-		harga_menu: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
-		},
-		user_id: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
+		user: {
+			type: DataTypes.STRING,
+			required: true,
+			ref: "User",
 		},
 	},
 	{
