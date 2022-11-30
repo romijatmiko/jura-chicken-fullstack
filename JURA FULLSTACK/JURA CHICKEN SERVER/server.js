@@ -1,35 +1,51 @@
-const express = require("express");
-const cors = require("cors");
-const { Client } = require("pg");
-// const jwt = require('jsonwebtoken')
-
-const indexRoutes = require("./routes/index");
-const userRoutes = require("./routes/user");
-const adminRoutes = require("./routes/admin");
-const menuRoutes = require("./routes/menu");
-
-require("dotenv").config();
-const client = new Client();
-client.connect();
+import express from "express";
+import cors from "cors";
+import session from "express-session";
+import dotenv from "dotenv";
+import db from "./config/Database.js";
+import SequelizeStore from "connect-session-sequelize";
+import UserRoute from "./routes/UserRoute.js";
+import ProductRoute from "./routes/ProductRoute.js";
+import AuthRoute from "./routes/AuthRoute.js";
+dotenv.config();
 
 const app = express();
-const port = 3100;
+
+const sessionStore = SequelizeStore(session.Store);
+
+const store = new sessionStore({
+	db: db,
+});
+
+// (async()=>{
+//     await db.sync();
+// })();
 
 app.use(
-	cors({
-		origin: "*",
-		// credentials: true,
-		// origin : 'http://localhost:3000'
+	session({
+		secret: process.env.SESS_SECRET,
+		resave: false,
+		saveUninitialized: true,
+		store: store,
+		cookie: {
+			secure: "auto",
+		},
 	})
 );
 
+app.use(
+	cors({
+		credentials: true,
+		origin: process.env.CREDENTIALS,
+	})
+);
 app.use(express.json());
+app.use(UserRoute);
+app.use(ProductRoute);
+app.use(AuthRoute);
 
-app.use("", indexRoutes);
-app.use("/user", userRoutes);
-app.use("/admin", adminRoutes);
-app.use("/menu", menuRoutes);
+// store.sync();
 
-app.listen(port, () => {
-	console.log(`JuraServer berjalan di port ${port} `);
+app.listen(process.env.PORT, () => {
+	console.log("Server up and running...");
 });

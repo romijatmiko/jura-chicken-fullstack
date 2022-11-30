@@ -4,12 +4,13 @@ import Users from "./userModels";
 
 const { DataTypes } = Sequelize;
 
-const Menus = db.define(
+const Keranjang = db.define(
 	"keranjang",
 	{
-		uuid: {
+		id_cart: {
 			type: DataTypes.STRING,
 			defaultValue: DataTypes.UUIDV4,
+			primaryKey: true,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
@@ -37,4 +38,4 @@ const Menus = db.define(
 Users.hasMany(Menus);
 Products.belongsTo(Users, { foreignKey: "user_id" });
 
-export default Products;
+export default Keranjang;

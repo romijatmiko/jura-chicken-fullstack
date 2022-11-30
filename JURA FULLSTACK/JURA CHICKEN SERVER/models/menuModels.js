@@ -1,6 +1,5 @@
 import { Sequelize } from "sequelize";
 import db from "../db/config";
-import Users from "./userModels";
 
 const { DataTypes } = Sequelize;
 
@@ -30,8 +29,22 @@ const Menus = db.define(
 				notEmpty: true,
 			},
 		},
-		user_id: {
+		deskripsi: {
 			type: DataTypes.INTEGER,
+			allowNull: false,
+			validate: {
+				notEmpty: true,
+			},
+		},
+		created_at: {
+			type: DataTypes.TIMESTAMP,
+			allowNull: false,
+			validate: {
+				notEmpty: true,
+			},
+		},
+		updated_at: {
+			type: DataTypes.TIMESTAMP,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
@@ -43,7 +56,4 @@ const Menus = db.define(
 	}
 );
 
-Users.hasMany(Menus);
-Products.belongsTo(Users, { foreignKey: "user_id" });
-
-export default Products;
+export default Menus;

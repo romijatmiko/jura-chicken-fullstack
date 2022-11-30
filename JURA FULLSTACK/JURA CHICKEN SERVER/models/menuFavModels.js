@@ -2,10 +2,11 @@ import { Sequelize } from "sequelize";
 import db from "../db/config";
 
 const { DataTypes } = Sequelize;
-const Admins = db.define(
-	"admin_jura",
+
+const MenuFav = db.define(
+	"menu_favorit",
 	{
-		uuid: {
+		id_favorit: {
 			type: DataTypes.STRING,
 			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
@@ -14,7 +15,7 @@ const Admins = db.define(
 				notEmpty: true,
 			},
 		},
-		nama_admin: {
+		nama_menu: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -22,16 +23,15 @@ const Admins = db.define(
 				len: [3, 100],
 			},
 		},
-		email_admin: {
-			type: DataTypes.STRING,
+		harga_menu: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
-				isEmail: true,
 			},
 		},
-		password_admin: {
-			type: DataTypes.STRING,
+		deskripsi: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
@@ -57,4 +57,4 @@ const Admins = db.define(
 	}
 );
 
-export default Admins;
+export default MenuFav;
