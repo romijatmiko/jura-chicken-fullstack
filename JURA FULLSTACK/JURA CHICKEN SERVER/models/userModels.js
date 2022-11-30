@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
+import db from "../db/dbConfig.js";
 
 const { DataTypes } = Sequelize;
 
@@ -32,20 +32,6 @@ const user_jura = db.define(
 		},
 		password_user: {
 			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
-		},
-		created_at: {
-			type: DataTypes.TIMESTAMP,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
-		},
-		updated_at: {
-			type: DataTypes.TIMESTAMP,
 			allowNull: false,
 			validate: {
 				notEmpty: true,

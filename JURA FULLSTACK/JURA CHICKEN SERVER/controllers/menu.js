@@ -1,5 +1,4 @@
-import menu_jura from "../models/menuModels";
-import User from "../models/UserModel.js";
+import menu_jura from "../models/menuModels.js";
 import { Op } from "sequelize";
 
 export const getMenu = async (req, res) => {

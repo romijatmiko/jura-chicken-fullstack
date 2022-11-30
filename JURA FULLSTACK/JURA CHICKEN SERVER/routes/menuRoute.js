@@ -1,16 +1,19 @@
-const express = require("express");
+import express from "express";
+import {
+	getMenu,
+	getMenutById,
+	createMenu,
+	updateMenu,
+	deleteMenu,
+} from "../controllers/menu.js";
+import { verifyUser } from "../middleware/authUser.js";
+
 const router = express.Router();
 
-const addMenu = require("../controllers/menu/postMenu");
-const getAllMenu = require("../controllers/menu/getAllMenu");
-const getMenuById = require("../controllers/menu/getMenuById");
-const updateMenu = require("../controllers/menu/updateMenu");
-const deleteMenu = require("../controllers/menu/deleteMenu");
+router.get("/products", verifyUser, getMenu);
+router.get("/products/:id", verifyUser, getMenutById);
+router.post("/products", verifyUser, createMenu);
+router.patch("/products/:id", verifyUser, updateMenu);
+router.delete("/products/:id", verifyUser, deleteMenu);
 
-router.post("/add", addMenu);
-router.get("/get", getAllMenu);
-router.get("/get/:id([0-9a-z-]+)", getMenuById);
-router.put("/update/:id([0-9a-z-]+)", updateMenu);
-router.delete("/delete/:id([0-9a-z-]+)", deleteMenu);
-
-module.exports = router;
+export default router;

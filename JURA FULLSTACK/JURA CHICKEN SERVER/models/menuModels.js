@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import db from "../config/Database.js";
+import db from "../db/dbConfig.js";
 
 const { DataTypes } = Sequelize;
 
@@ -43,20 +43,6 @@ const menu_jura = db.define(
 			validate: {
 				notEmpty: true,
 				len: [3, 100],
-			},
-		},
-		created_at: {
-			type: DataTypes.TIMESTAMP,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
-		},
-		updated_at: {
-			type: DataTypes.TIMESTAMP,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
 			},
 		},
 		harga_menu: {

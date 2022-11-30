@@ -1,8 +1,8 @@
-import User from "../models/UserModel.js";
+import user_jura from "../models/userModels.js";
 import bcrypt from "bcryptjs";
 
 export const Login = async (req, res) => {
-	const user = await User.findOne({
+	const user = await user_jura.findOne({
 		where: {
 			email: req.body.email,
 		},
