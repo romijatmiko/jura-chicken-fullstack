@@ -1,34 +1,22 @@
-import Product from "../models/ProductModel.js";
+import menu_jura from "../models/menuModels";
 import User from "../models/UserModel.js";
 import { Op } from "sequelize";
 
 export const getMenu = async (req, res) => {
 	try {
 		let response;
-		if (req.role === "admin") {
-			response = await Product.findAll({
-				attributes: ["uuid", "name", "price"],
-				include: [
-					{
-						model: User,
-						attributes: ["name", "email"],
-					},
-				],
-			});
-		} else {
-			response = await Product.findAll({
-				attributes: ["uuid", "name", "price"],
-				where: {
-					userId: req.userId,
-				},
-				include: [
-					{
-						model: User,
-						attributes: ["name", "email"],
-					},
-				],
-			});
-		}
+		response = await menu_jura.findAll({
+			attributes: [
+				"uuid",
+				"nama_menu",
+				"img",
+				"deskripsi",
+				"stok",
+				"created_at",
+				"updated_at",
+				"harga_menu",
+			],
+		});
 		res.status(200).json(response);
 	} catch (error) {
 		res.status(500).json({ msg: error.message });
@@ -37,40 +25,29 @@ export const getMenu = async (req, res) => {
 
 export const getMenutById = async (req, res) => {
 	try {
-		const product = await Product.findOne({
+		const menu_jura = await menu_jura.findOne({
 			where: {
 				uuid: req.params.id,
 			},
 		});
-		if (!product) return res.status(404).json({ msg: "Data tidak ditemukan" });
+		if (!menu_jura)
+			return res.status(404).json({ msg: "Data tidak ditemukan" });
 		let response;
-		if (req.role === "admin") {
-			response = await Product.findOne({
-				attributes: ["uuid", "name", "price"],
-				where: {
-					id: product.id,
-				},
-				include: [
-					{
-						model: User,
-						attributes: ["name", "email"],
-					},
-				],
-			});
-		} else {
-			response = await Product.findOne({
-				attributes: ["uuid", "name", "price"],
-				where: {
-					[Op.and]: [{ id: product.id }, { userId: req.userId }],
-				},
-				include: [
-					{
-						model: User,
-						attributes: ["name", "email"],
-					},
-				],
-			});
-		}
+		response = await menu_jura.findOne({
+			attributes: [
+				"uuid",
+				"nama_menu",
+				"img",
+				"deskripsi",
+				"stok",
+				"created_at",
+				"updated_at",
+				"harga_menu",
+			],
+			where: {
+				id: menu_jura.id,
+			},
+		});
 		res.status(200).json(response);
 	} catch (error) {
 		res.status(500).json({ msg: error.message });
@@ -78,14 +55,26 @@ export const getMenutById = async (req, res) => {
 };
 
 export const createMenu = async (req, res) => {
-	const { name, price } = req.body;
+	const {
+		nama_menu,
+		img,
+		deskripsi,
+		stok,
+		created_at,
+		updated_at,
+		harga_menu,
+	} = req.body;
 	try {
-		await Product.create({
-			name: name,
-			price: price,
-			userId: req.userId,
+		await menu_jura.create({
+			nama_menu: nama_menu,
+			img: img,
+			deskripsi: deskripsi,
+			stok: stok,
+			created_at: created_at,
+			updated_at: updated_at,
+			harga_menu: harga_menu,
 		});
-		res.status(201).json({ msg: "Product Created Successfuly" });
+		res.status(201).json({ msg: "menu_jura Created Successfuly" });
 	} catch (error) {
 		res.status(500).json({ msg: error.message });
 	}
@@ -93,35 +82,44 @@ export const createMenu = async (req, res) => {
 
 export const updateMenu = async (req, res) => {
 	try {
-		const product = await Product.findOne({
+		const menu_jura = await menu_jura.findOne({
 			where: {
 				uuid: req.params.id,
 			},
 		});
-		if (!product) return res.status(404).json({ msg: "Data tidak ditemukan" });
-		const { name, price } = req.body;
+		if (!menu_jura)
+			return res.status(404).json({ msg: "Data tidak ditemukan" });
+		const {
+			nama_menu,
+			img,
+			deskripsi,
+			stok,
+			created_at,
+			updated_at,
+			harga_menu,
+		} = req.body;
 		if (req.role === "admin") {
-			await Product.update(
-				{ name, price },
+			await menu_jura.update(
+				{ nama_menu, img, deskripsi, stok, created_at, updated_at, harga_menu },
 				{
 					where: {
-						id: product.id,
+						id: menu_jura.id,
 					},
 				}
 			);
 		} else {
-			if (req.userId !== product.userId)
+			if (req.userId !== menu_jura.userId)
 				return res.status(403).json({ msg: "Akses terlarang" });
-			await Product.update(
+			await menu_jura.update(
 				{ name, price },
 				{
 					where: {
-						[Op.and]: [{ id: product.id }, { userId: req.userId }],
+						[Op.and]: [{ id: menu_jura.id }, { userId: req.userId }],
 					},
 				}
 			);
 		}
-		res.status(200).json({ msg: "Product updated successfuly" });
+		res.status(200).json({ msg: "menu_jura updated successfuly" });
 	} catch (error) {
 		res.status(500).json({ msg: error.message });
 	}
@@ -129,29 +127,30 @@ export const updateMenu = async (req, res) => {
 
 export const deleteMenu = async (req, res) => {
 	try {
-		const product = await Product.findOne({
+		const menu_jura = await menu_jura.findOne({
 			where: {
 				uuid: req.params.id,
 			},
 		});
-		if (!product) return res.status(404).json({ msg: "Data tidak ditemukan" });
+		if (!menu_jura)
+			return res.status(404).json({ msg: "Data tidak ditemukan" });
 		const { name, price } = req.body;
 		if (req.role === "admin") {
-			await Product.destroy({
+			await menu_jura.destroy({
 				where: {
-					id: product.id,
+					id: menu_jura.id,
 				},
 			});
 		} else {
-			if (req.userId !== product.userId)
+			if (req.userId !== menu_jura.userId)
 				return res.status(403).json({ msg: "Akses terlarang" });
-			await Product.destroy({
+			await menu_jura.destroy({
 				where: {
-					[Op.and]: [{ id: product.id }, { userId: req.userId }],
+					[Op.and]: [{ id: menu_jura.id }, { userId: req.userId }],
 				},
 			});
 		}
-		res.status(200).json({ msg: "Product deleted successfuly" });
+		res.status(200).json({ msg: "menu_jura deleted successfuly" });
 	} catch (error) {
 		res.status(500).json({ msg: error.message });
 	}
