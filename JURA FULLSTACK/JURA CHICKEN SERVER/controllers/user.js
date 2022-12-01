@@ -1,5 +1,5 @@
 import User from "../models/userModels.js";
-import bcrypt from "bcryptjs";
+import argon2 from "argon2";
 
 export const getUsers = async (req, res) => {
 	try {
@@ -8,8 +8,8 @@ export const getUsers = async (req, res) => {
 				"uuid",
 				"nama_user",
 				"email_user",
-				"created_at",
-				"updated_at",
+				"createdAt",
+				"updatedAt",
 				"role",
 			],
 		});
@@ -22,14 +22,7 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
 	try {
 		const response = await User.findOne({
-			attributes: [
-				"uuid",
-				"nama_user",
-				"email_user",
-				"created_at",
-				"updated_at",
-				"role",
-			],
+			attributes: ["uuid", "nama_user", "email_user", "role"],
 			where: {
 				uuid: req.params.id,
 			},
@@ -41,27 +34,17 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-	const {
-		nama_user,
-		email_user,
-		password_user,
-		confPassword,
-		created_at,
-		updated_at,
-		role,
-	} = req.body;
+	const { nama_user, email_user, password_user, confPassword, role } = req.body;
 	if (password_user !== confPassword)
 		return res
 			.status(400)
 			.json({ msg: "Password dan Confirm Password tidak cocok" });
-	const hashPassword = await bcrypt.hash(password_user);
+	const hashPassword = await argon2.hash(password_user);
 	try {
 		await User.create({
 			nama_user: nama_user,
 			email_user: email_user,
 			password_user: hashPassword,
-			created_at: created_at,
-			updated_at: updated_at,
 			role: role,
 		});
 		res.status(201).json({ msg: "Register Berhasil" });
@@ -77,20 +60,12 @@ export const updateUser = async (req, res) => {
 		},
 	});
 	if (!user) return res.status(404).json({ msg: "User tidak ditemukan" });
-	const {
-		nama_user,
-		email_user,
-		password_user,
-		confPassword,
-		created_at,
-		updated_at,
-		role,
-	} = req.body;
+	const { nama_user, email_user, password_user, confPassword, role } = req.body;
 	let hashPassword;
 	if (password_user === "" || password_user === null) {
 		hashPassword = user.password_user;
 	} else {
-		hashPassword = await bcrypt.hash(password_user);
+		hashPassword = await argon2.hash(password_user);
 	}
 	if (password_user !== confPassword)
 		return res
@@ -102,8 +77,6 @@ export const updateUser = async (req, res) => {
 				nama_user: nama_user,
 				email_user: email_user,
 				password_user: hashPassword,
-				created_at: created_at,
-				updated_at: updated_at,
 				role: role,
 			},
 			{

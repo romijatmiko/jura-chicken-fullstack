@@ -11,8 +11,8 @@ export const getMenu = async (req, res) => {
 				"img",
 				"deskripsi",
 				"stok",
-				"created_at",
-				"updated_at",
+				"createdAt",
+				"updatedAt",
 				"harga_menu",
 			],
 		});
@@ -24,27 +24,19 @@ export const getMenu = async (req, res) => {
 
 export const getMenutById = async (req, res) => {
 	try {
-		const menu_jura = await menu_jura.findOne({
-			where: {
-				uuid: req.params.id,
-			},
-		});
-		if (!menu_jura)
-			return res.status(404).json({ msg: "Data tidak ditemukan" });
-		let response;
-		response = await menu_jura.findOne({
+		const response = await menu_jura.findOne({
 			attributes: [
 				"uuid",
 				"nama_menu",
 				"img",
 				"deskripsi",
 				"stok",
-				"created_at",
-				"updated_at",
+				"createdAt",
+				"updatedAt",
 				"harga_menu",
 			],
 			where: {
-				id: menu_jura.id,
+				uuid: req.params.id,
 			},
 		});
 		res.status(200).json(response);
@@ -54,23 +46,13 @@ export const getMenutById = async (req, res) => {
 };
 
 export const createMenu = async (req, res) => {
-	const {
-		nama_menu,
-		img,
-		deskripsi,
-		stok,
-		created_at,
-		updated_at,
-		harga_menu,
-	} = req.body;
+	const { nama_menu, img, deskripsi, stok, harga_menu } = req.body;
 	try {
 		await menu_jura.create({
 			nama_menu: nama_menu,
 			img: img,
 			deskripsi: deskripsi,
 			stok: stok,
-			created_at: created_at,
-			updated_at: updated_at,
 			harga_menu: harga_menu,
 		});
 		res.status(201).json({ msg: "menu_jura Created Successfuly" });

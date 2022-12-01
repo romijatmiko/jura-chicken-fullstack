@@ -25,6 +25,7 @@ const user_jura = db.define(
 		email_user: {
 			type: DataTypes.STRING,
 			allowNull: false,
+			unique: true,
 			validate: {
 				notEmpty: true,
 				isEmail: true,
