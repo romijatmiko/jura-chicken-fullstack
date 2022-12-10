@@ -11,7 +11,7 @@ const addMenu = () => {
 				<Header />
 				<br></br>
 				<br></br>
-				<Card border="primary" style={{ width: "50rem" }}>
+				<Card className="kocak" border="primary" style={{ width: "50rem" }}>
 					<Card.Header className="text-center">
 						<p class="font-weight-bold">Jura Chicken Menu</p>
 					</Card.Header>

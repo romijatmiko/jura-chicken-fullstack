@@ -22,8 +22,8 @@ export function Header() {
 					<Nav className="me-auto">
 						<Nav.Link href="/">Homepage</Nav.Link>
 						<Nav.Link href="/menus">Menus</Nav.Link>
-						<Nav.Link href="/keranjang">Users</Nav.Link>
-						<Nav.Link href="/keranjang">Orders</Nav.Link>
+						<Nav.Link href="/users">Users</Nav.Link>
+						<Nav.Link href="/orders">Orders</Nav.Link>
 					</Nav>
 					<Nav>
 						<Nav.Link href="/login">Login</Nav.Link>

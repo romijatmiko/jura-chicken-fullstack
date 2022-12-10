@@ -1,13 +1,39 @@
 .App {
   text-align: center;
 }
+.homeCards{
+  height: 5rem;
+  width: 30rem;
+}
+.he{
+  text-align: center;
+  text-shadow: #282c34;
+  font-weight:bold;
+  font-size: 2rem; 
+}
+.flex-container {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  height: 20rem;
+  width: 50rem;
+    margin: 0 auto;
+      /* Added */
+      float: none;
+}
+
+.flex-container>div {
+  background-color: #f1f1f1;
+  margin: 25px;
+}
 .card {
+  /* Added */
+}
+.kocak{
   margin: 0 auto;
-  /* Added */
-  float: none;
-  /* Added */
-  margin-bottom: 10px;
-  /* Added */
+    /* Added */
+    float: none;
+    /* Added */
+    margin-bottom: 10px;
 }
 .h {
   margin: 0 auto;

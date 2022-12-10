@@ -4,14 +4,14 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 
-const Menu = () => {
+const User = () => {
 	return (
 		<div>
 			<Header />
 			<div className="mt-3">
 				<Container fluid>
 					<br></br>
-					<Card border="primary" style={{ width: "50rem" }}>
+					<Card className="kocak" border="primary" style={{ width: "50rem" }}>
 						<h4>
 							<p>List Users</p>
 							<hr />
@@ -95,4 +95,4 @@ const Menu = () => {
 	);
 };
 
-export default Menu;
+export default User;

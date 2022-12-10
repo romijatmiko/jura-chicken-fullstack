@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 
-const Menu = () => {
+const Orders = () => {
 	return (
 		<div>
 			<Header />
@@ -28,7 +28,7 @@ const Menu = () => {
 					</button>
 					<hr />
 					<br></br>
-					<Card border="primary" style={{ width: "50rem" }}>
+					<Card className="kocak" border="primary" style={{ width: "50rem" }}>
 						<h4>
 							<p>List Menus</p>
 							<hr />
@@ -113,4 +113,4 @@ const Menu = () => {
 	);
 };
 
-export default Menu;
+export default Orders;

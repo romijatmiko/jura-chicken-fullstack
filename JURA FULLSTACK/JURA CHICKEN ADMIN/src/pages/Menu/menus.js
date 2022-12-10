@@ -28,7 +28,7 @@ const Menu = () => {
 					</button>
 					<hr />
 					<br></br>
-					<Card border="primary" style={{ width: "auto" }}>
+					<Card className="kocak" border="primary" style={{ width: "auto" }}>
 						<h4>
 							<p>List Menus</p>
 							<hr />
