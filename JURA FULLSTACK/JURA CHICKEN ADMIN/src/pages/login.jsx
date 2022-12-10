@@ -1,93 +1,70 @@
 import React from "react";
-import {
-	MDBContainer,
-	MDBInput,
-	MDBCheckbox,
-	MDBBtn,
-	MDBIcon,
-} from "mdb-react-ui-kit";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { LoginUser, reset } from "../auth/authSlice";
 
-function App() {
-	const [token, setToken] = useState();
+const Login = () => {
+	const [email_user, setEmail_user] = useState("");
+	const [password, setPassword] = useState("");
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { user, isError, isSuccess, isLoading, message } = useSelector(
+		(state) => state.auth
+	);
 
-	if (!token) {
-		return <Login setToken={setToken} />;
-	}
+	useEffect(() => {
+		if (user || isSuccess) {
+			navigate("/home");
+		}
+		dispatch(reset());
+	}, [user, isSuccess, dispatch, navigate]);
+
+	const Auth = (e) => {
+		e.preventDefault();
+		dispatch(LoginUser({ email_user, password }));
+	};
 
 	return (
-		<MDBContainer className="p-3 my-5 d-flex flex-column w-50">
-			<MDBBtn className="mb-4" color="danger">
-				Jura Chicken
-			</MDBBtn>
-			<MDBInput
-				wrapperClass="mb-4"
-				label="Email address"
-				id="form1"
-				type="email"
-			/>
-			<MDBInput
-				wrapperClass="mb-4"
-				label="Password"
-				id="form2"
-				type="password"
-			/>
-
-			<div className="d-flex justify-content-between mx-3 mb-4">
-				<MDBCheckbox
-					name="flexCheck"
-					value=""
-					id="flexCheckDefault"
-					label="Remember me"
+		<Form onSubmit={Auth}>
+			{isError && <p className="has-text-centered">{message}</p>}
+			<Form.Group className="mb-3" controlId="formBasicEmail">
+				<Form.Label>Email address</Form.Label>
+				<Form.Control
+					type="text"
+					className="input"
+					value={email}
+					onChange={(e) => setEmail_user(e.target.value)}
+					placeholder="Email"
 				/>
-				<a href="!#">Forgot password?</a>
-			</div>
+				<Form.Text className="text-muted">
+					We'll never share your email with anyone else.
+				</Form.Text>
+			</Form.Group>
 
-			<MDBBtn className="mb-4">Sign in</MDBBtn>
-
-			<div className="text-center">
-				<p>
-					Not a member? <a href="#!">Register</a>
-				</p>
-				<p>or sign up with:</p>
-
-				<div
-					className="d-flex justify-content-between mx-auto"
-					style={{ width: "40%" }}>
-					<MDBBtn
-						tag="a"
-						color="none"
-						className="m-1"
-						style={{ color: "#1266f1" }}>
-						<MDBIcon fab icon="facebook-f" size="sm" />
-					</MDBBtn>
-
-					<MDBBtn
-						tag="a"
-						color="none"
-						className="m-1"
-						style={{ color: "#1266f1" }}>
-						<MDBIcon fab icon="twitter" size="sm" />
-					</MDBBtn>
-
-					<MDBBtn
-						tag="a"
-						color="none"
-						className="m-1"
-						style={{ color: "#1266f1" }}>
-						<MDBIcon fab icon="google" size="sm" />
-					</MDBBtn>
-
-					<MDBBtn
-						tag="a"
-						color="none"
-						className="m-1"
-						style={{ color: "#1266f1" }}>
-						<MDBIcon fab icon="github" size="sm" />
-					</MDBBtn>
-				</div>
-			</div>
-		</MDBContainer>
+			<Form.Group className="mb-3" controlId="formBasicPassword">
+				<Form.Label>Password</Form.Label>
+				<Form.Control
+					type="password"
+					className="input"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					placeholder="******"
+				/>
+			</Form.Group>
+			<Form.Group className="mb-3" controlId="formBasicCheckbox">
+				<Form.Check type="checkbox" label="Check me out" />
+			</Form.Group>
+			<Button
+				variant="primary"
+				type="submit"
+				className="button is-success is-fullwidth">
+				{isLoading ? "Loading..." : "Login"}
+			</Button>
+		</Form>
 	);
-}
+};
 
-export default App;
+export default Login;
