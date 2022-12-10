@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Header } from "../../components/Header";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const AddMenus = () => {
+const Addmenus = () => {
 	const [nama_menu, setNama_menu] = useState("");
 	const [img, setImg] = useState("");
 	const [deskripsi, setDeskripsi] = useState("");
