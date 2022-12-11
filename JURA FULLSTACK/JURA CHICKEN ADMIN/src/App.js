@@ -1,29 +1,78 @@
-import logo from "./logo.svg";
 import "./App.css";
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Login from "./pages/login";
-import HomeScreen from "./pages/HomeScreen";
-import AddMenus from "./pages/Menu/AddMenus";
+import HomeScreen from "./pages/admin/HomeScreen";
+import AddJura from "./pages/admin/AddMenus";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Menu from "./pages/Menu/menus";
-import User from "./pages/Users/user";
-import Orders from "./pages/Orders/order";
-import Login from "./pages/login";
+import Menu from "./pages/admin/menus";
+import User from "./pages/admin/user";
+import Orders from "./pages/admin/order";
+import Login from "./pages/admin/login";
+import PrivateRouter from "./auth/privateRoutes";
+import FormEditMenu from "./components/admin/FormEditMenu";
 
-export default class App extends Component {
-	render() {
-		return (
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Login />} />
-					<Route path="/home" element={<HomeScreen />} />
-					<Route path="/users" element={<User />} />
-					<Route path="/menus" element={<Menu />} />
-					<Route path="/menus/add" element={<AddMenus />} />
-					<Route path="/orders" element={<Orders />} />
-				</Routes>
-			</BrowserRouter>
-		);
-	}
+function App() {
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route
+					path="/admin/login"
+					element={
+						<PrivateRouter>
+							<Login />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/homepage"
+					element={
+						<PrivateRouter>
+							<HomeScreen />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/users"
+					element={
+						<PrivateRouter>
+							<User />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/menus"
+					element={
+						<PrivateRouter>
+							<Menu />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/menus/add"
+					element={
+						<PrivateRouter>
+							<AddJura />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/menu/update/:id"
+					element={
+						<PrivateRouter>
+							<FormEditMenu />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/orders"
+					element={
+						<PrivateRouter>
+							<Orders />
+						</PrivateRouter>
+					}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
 }
+export default App;
