@@ -23,13 +23,13 @@ export const Me = async (req, res) => {
 	if (!req.session.userId) {
 		return res.status(401).json({ msg: "Mohon login ke akun Anda!" });
 	}
-	const user = await User.findOne({
+	const user = await user_jura.findOne({
 		attributes: [
 			"uuid",
 			"nama_user",
 			"email_user",
-			"created_at",
-			"updated_at",
+			"createdAt",
+			"updatedAt",
 			"role",
 		],
 		where: {

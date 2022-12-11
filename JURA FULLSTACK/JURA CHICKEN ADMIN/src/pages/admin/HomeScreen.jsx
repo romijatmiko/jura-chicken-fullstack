@@ -1,13 +1,12 @@
-import React from "react";
-import { Header } from "../components/Header";
+import React, { useEffect } from "react";
+import HeaderJura from "../../components/admin/HeaderJura";
 import Card from "react-bootstrap/Card";
-import { Container } from "react-bootstrap";
 
 const HomeScreen = () => {
 	return (
 		<>
 			<main className="main-wrap">
-				<Header />
+				<HeaderJura />
 				<div class="flex-container">
 					<Card className="homeCards">
 						<Card.Body>

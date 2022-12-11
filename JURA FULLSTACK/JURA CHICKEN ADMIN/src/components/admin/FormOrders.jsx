@@ -1,13 +1,11 @@
 import React from "react";
-import { Header } from "../../components/Header";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
 
-const Orders = () => {
+const FormOrders = () => {
 	return (
 		<div>
-			<Header />
 			<div className="mt-3">
 				<Container fluid>
 					<Col className="mt-3">
@@ -113,4 +111,4 @@ const Orders = () => {
 	);
 };
 
-export default Orders;
+export default FormOrders;

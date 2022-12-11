@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "./logo.png";
 
-export function Header() {
+export function NavbarJura() {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="light" variant="light">
 			<Container>
@@ -20,10 +20,19 @@ export function Header() {
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 				<Navbar.Collapse id="responsive-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link href="/">Homepage</Nav.Link>
-						<Nav.Link href="/menus">Menus</Nav.Link>
-						<Nav.Link href="/users">Users</Nav.Link>
-						<Nav.Link href="/orders">Orders</Nav.Link>
+						<Nav.Link href="/">All Menu</Nav.Link>
+						<Nav.Link href="/keranjang">Keranjang</Nav.Link>
+						<NavDropdown title="E-Jura" id="collasible-nav-dropdown">
+							<NavDropdown.Item href="#action/3.1">
+								Top Up E-Jura
+							</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.2">
+								Cek Riwayat Top Up
+							</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.3">
+								Laporkan Masalah
+							</NavDropdown.Item>
+						</NavDropdown>
 					</Nav>
 					<Nav>
 						<Nav.Link href="/login">Login</Nav.Link>

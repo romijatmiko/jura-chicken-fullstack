@@ -1,41 +1,66 @@
-import React from "react";
-import { Header } from "../../components/Header";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import HeaderJura from "./HeaderJura";
 
-const Addmenus = () => {
+const FormEditMenu = () => {
 	const [nama_menu, setNama_menu] = useState("");
 	const [img, setImg] = useState("");
 	const [deskripsi, setDeskripsi] = useState("");
 	const [stok, setStok] = useState("");
 	const [harga_menu, setHarga_menu] = useState("");
+	const [updateAt, setUpdateAt] = useState("");
 	const [msg, setMsg] = useState("");
 	const navigate = useNavigate();
+	const { id } = useParams();
 
-	const saveProduct = async (e) => {
+	useEffect(() => {
+		const getProductById = async () => {
+			try {
+				const response = await axios.get(
+					`http://localhost:3100/menu/get/${id}`
+				);
+				setNama_menu(response.data.nama_menu);
+				setImg(response.data.img);
+				setDeskripsi(response.data.deskripsi);
+				setStok(response.data.stok);
+				setHarga_menu(response.data.harga_menu);
+				setUpdateAt(response.data.updateAt);
+			} catch (error) {
+				if (error.response) {
+					setMsg(error.response.data.msg);
+				}
+			}
+		};
+		getProductById();
+	}, [id]);
+
+	const updateProduct = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post("http://localhost:5000/menu/add", {
+			await axios.patch(`http://localhost:3100/menu/update/${id}`, {
 				nama_menu: nama_menu,
 				img: img,
 				deskripsi: deskripsi,
 				stok: stok,
 				harga_menu: harga_menu,
+				updateAt: updateAt,
 			});
-			navigate("/menus");
+			navigate("/admin/menus");
 		} catch (error) {
 			if (error.response) {
 				setMsg(error.response.data.msg);
 			}
 		}
 	};
+
 	return (
 		<>
 			<main className="main-wrap">
-				<Header />
+				<HeaderJura />
 				<br></br>
 				<br></br>
 				<Card className="kocak" border="primary" style={{ width: "50rem" }}>
@@ -43,7 +68,8 @@ const Addmenus = () => {
 						<p class="font-weight-bold">Jura Chicken Menu</p>
 					</Card.Header>
 					<Card.Body>
-						<Form onSubmit={saveProduct}>
+						<Form onSubmit={updateProduct}>
+							<p className="has-text-centered">{msg}</p>
 							<Form.Group className="mb-3" controlId="formBasicEmail">
 								<Form.Label>Nama Menu</Form.Label>
 								<Form.Control
@@ -52,6 +78,13 @@ const Addmenus = () => {
 									value={nama_menu}
 									onChange={(e) => setNama_menu(e.target.value)}
 									placeholder="Nama Menu"
+								/>
+								<Form.Control
+									type="hidden"
+									className="input"
+									value={Date.now()}
+									onChange={(e) => setUpdateAt(e.target.value)}
+									placeholder="update time"
 								/>
 							</Form.Group>
 							<Form.Group className="mb-3" controlId="formBasicEmail">
@@ -98,7 +131,8 @@ const Addmenus = () => {
 							<Button
 								variant="primary"
 								type="submit"
-								className="button is-success">
+								className="button is-success"
+								class="btn btn-primary">
 								Submit
 							</Button>
 						</Form>
@@ -111,4 +145,4 @@ const Addmenus = () => {
 	);
 };
 
-export default AddMenus;
+export default FormEditMenu;
