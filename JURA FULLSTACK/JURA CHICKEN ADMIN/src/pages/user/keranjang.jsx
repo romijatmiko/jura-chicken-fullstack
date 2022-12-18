@@ -16,8 +16,8 @@ import {
 	MDBTypography,
 } from "mdb-react-ui-kit";
 import React from "react";
-import { NavbarJura } from "../../components/navbarj";
-import { FooterJura } from "../../components/FooterJura";
+import { NavbarJura } from "../../components/user/navbarj";
+import { FooterJura } from "../../components/user/FooterJura";
 
 export default function Keranjang() {
 	return (

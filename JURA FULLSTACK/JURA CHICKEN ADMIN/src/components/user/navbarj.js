@@ -3,8 +3,44 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "./logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { LogOut, reset } from "../../auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export function NavbarJura() {
+	const [id, setId] = useState("");
+	const { user, isSuccess } = useSelector((state) => state.auth);
+	const { navbarLogin } = { isSuccess, user };
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		const user = async () => {
+			try {
+				const response = await axios.get(
+					`http://localhost:3100/users/get/${id}`
+				);
+				setId(response.data.uuid);
+				console.log(setId);
+			} catch (error) {
+				if (error.response) {
+					console.log(error);
+				}
+			}
+		};
+		user();
+	}, [id]);
+
+	const logout = () => {
+		dispatch(LogOut());
+		dispatch(reset());
+		navigate("/");
+	};
+	const icons = <i class="fa-solid fa-user fa-lg"></i>;
+	const icons2 = <i class="fa-solid fa-wallet fa-lg"></i>;
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="light" variant="light">
 			<Container>
@@ -18,26 +54,43 @@ export function NavbarJura() {
 					/>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-				<Navbar.Collapse id="responsive-navbar-nav">
+				<Navbar.Collapse id="responsive-navbar-nav mr-3">
 					<Nav className="me-auto">
 						<Nav.Link href="/">All Menu</Nav.Link>
-						<Nav.Link href="/keranjang">Keranjang</Nav.Link>
-						<NavDropdown title="E-Jura" id="collasible-nav-dropdown">
-							<NavDropdown.Item href="#action/3.1">
-								Top Up E-Jura
-							</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.2">
-								Cek Riwayat Top Up
-							</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.3">
-								Laporkan Masalah
-							</NavDropdown.Item>
-						</NavDropdown>
+						<Nav.Link href="/">Promo Menarik</Nav.Link>
+						<Nav.Link href="/">FAQ</Nav.Link>
 					</Nav>
-					<Nav>
-						<Nav.Link href="/login">Login</Nav.Link>
-						<Nav.Link href="/register">Daftar</Nav.Link>
-					</Nav>
+					{isSuccess || user ? (
+						<Nav>
+							<div className="ggz">
+								<Nav.Link href="/keranjang">
+									<i class="fa-solid fa-cart-shopping fa-lg"></i>
+									<span class="badge badge-warning" id="lblCartCount">
+										{" "}
+										7{" "}
+									</span>
+								</Nav.Link>
+							</div>
+							<NavDropdown title={icons} id="collasible-nav-dropdown">
+								<NavDropdown.Item href={"/profile" + id}>
+									My Profile
+								</NavDropdown.Item>
+								<NavDropdown.Item href={"/profile" + id}>
+									E-Jura
+								</NavDropdown.Item>
+								<NavDropdown.Item onClick={logout} class="btn btn-danger">
+									Logout
+								</NavDropdown.Item>
+							</NavDropdown>
+						</Nav>
+					) : (
+						<div>
+							<Nav>
+								<Nav.Link href="/login">Login</Nav.Link>
+								<Nav.Link href="/register">Daftar</Nav.Link>
+							</Nav>
+						</div>
+					)}
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>

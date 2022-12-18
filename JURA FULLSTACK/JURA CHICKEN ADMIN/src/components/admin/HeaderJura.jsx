@@ -21,7 +21,7 @@ const HeaderJura = () => {
 		<div>
 			<Navbar collapseOnSelect expand="lg" bg="light" variant="light">
 				<Container>
-					<Navbar.Brand href="/">
+					<Navbar.Brand href="/admin/homepage">
 						<img
 							src={logo}
 							width="60"
@@ -33,10 +33,10 @@ const HeaderJura = () => {
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav">
 						<Nav className="me-auto">
-							<Nav.Link href="/">Homepage</Nav.Link>
-							<Nav.Link href="/menus">Menus</Nav.Link>
-							<Nav.Link href="/users">Users</Nav.Link>
-							<Nav.Link href="/orders">Orders</Nav.Link>
+							<Nav.Link href="/admin/homepage">Homepage</Nav.Link>
+							<Nav.Link href="/admin/menus">Menus</Nav.Link>
+							<Nav.Link href="/admin/users">Users</Nav.Link>
+							<Nav.Link href="/admin/orders">Orders</Nav.Link>
 						</Nav>
 						<Nav>
 							<button onClick={logout} class="btn btn-danger">

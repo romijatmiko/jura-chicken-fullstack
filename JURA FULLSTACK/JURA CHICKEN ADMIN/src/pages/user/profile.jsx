@@ -1,4 +1,3 @@
-import React from "react";
 import {
 	MDBCol,
 	MDBContainer,
@@ -16,10 +15,36 @@ import {
 	MDBListGroup,
 	MDBListGroupItem,
 } from "mdb-react-ui-kit";
-import { NavbarJura } from "../../components/navbarj";
-import { FooterJura } from "../../components/FooterJura";
+import { NavbarJura } from "../../components/user/navbarj";
+import { FooterJura } from "../../components/user/FooterJura";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export default function Profile() {
+	const [nama_user, setNama] = useState("");
+	const [email_user, setEmail_user] = useState("");
+	const [tanggal, setTanggal] = useState("");
+	const [msg, setMsg] = useState("");
+	const { id } = useParams();
+
+	useEffect(() => {
+		const user = async () => {
+			try {
+				const response = await axios.get(
+					`http://localhost:3100/users/get/${id}`
+				);
+				setNama(response.data.nama_user);
+				setEmail_user(response.data.email_user);
+				setTanggal(response.data.tanggal);
+			} catch (error) {
+				if (error.response) {
+					setMsg(error.response.data.msg);
+				}
+			}
+		};
+		user();
+	}, [id]);
 	return (
 		<section style={{ backgroundColor: "#FFFFFF" }}>
 			<NavbarJura />
@@ -35,8 +60,7 @@ export default function Profile() {
 									style={{ width: "150px" }}
 									fluid
 								/>
-								<p className="text-muted mb-1">Full Stack Developer</p>
-								<p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+								<p className="text-muted mb-4">Happy Shoping</p>
 								<div className="d-flex justify-content-center mb-2">
 									<MDBBtn>Follow</MDBBtn>
 									<MDBBtn outline className="ms-1">
@@ -94,11 +118,11 @@ export default function Profile() {
 							<MDBCardBody>
 								<MDBRow>
 									<MDBCol sm="3">
-										<MDBCardText>Full Name</MDBCardText>
+										<MDBCardText>Nama</MDBCardText>
 									</MDBCol>
 									<MDBCol sm="9">
 										<MDBCardText className="text-muted">
-											Johnatan Smith
+											{nama_user}
 										</MDBCardText>
 									</MDBCol>
 								</MDBRow>
@@ -109,19 +133,17 @@ export default function Profile() {
 									</MDBCol>
 									<MDBCol sm="9">
 										<MDBCardText className="text-muted">
-											example@example.com
+											{email_user}
 										</MDBCardText>
 									</MDBCol>
 								</MDBRow>
 								<hr />
 								<MDBRow>
 									<MDBCol sm="3">
-										<MDBCardText>Phone</MDBCardText>
+										<MDBCardText>Tanggal Regristrasi</MDBCardText>
 									</MDBCol>
 									<MDBCol sm="9">
-										<MDBCardText className="text-muted">
-											(097) 234-5678
-										</MDBCardText>
+										<MDBCardText className="text-muted">{tanggal}</MDBCardText>
 									</MDBCol>
 								</MDBRow>
 								<hr />

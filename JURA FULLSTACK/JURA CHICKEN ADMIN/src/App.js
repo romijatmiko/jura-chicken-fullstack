@@ -10,6 +10,14 @@ import Orders from "./pages/admin/order";
 import Login from "./pages/admin/login";
 import PrivateRouter from "./auth/privateRoutes";
 import FormEditMenu from "./components/admin/FormEditMenu";
+import LoginJura from "./pages/user/login";
+import HomeJura from "./pages/user/home";
+import UserRoute from "./auth/UserRoute";
+import Profile from "./pages/user/profile";
+import Keranjang from "./pages/user/keranjang";
+import Register from "./pages/user/register";
+import Details from "./pages/user/menuDetails";
+import { NavbarJura } from "./components/user/navbarj";
 
 function App() {
 	return (
@@ -69,6 +77,57 @@ function App() {
 						<PrivateRouter>
 							<Orders />
 						</PrivateRouter>
+					}
+				/>
+
+				<Route
+					path="/admin/login"
+					element={
+						<PrivateRouter>
+							<Login />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/login"
+					element={
+						<UserRoute>
+							<LoginJura />
+						</UserRoute>
+					}
+				/>
+				<Route path="/register" element={<Register />} />
+				<Route
+					path="/"
+					element={
+						<UserRoute>
+							<NavbarJura />
+							<HomeJura />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/profile/:id"
+					element={
+						<UserRoute>
+							<Profile />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/menu/:id"
+					element={
+						<UserRoute>
+							<Details />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/keranjang"
+					element={
+						<UserRoute>
+							<Keranjang />
+						</UserRoute>
 					}
 				/>
 			</Routes>
