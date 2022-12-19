@@ -36,7 +36,7 @@ export default function Profile() {
 				);
 				setNama(response.data.nama_user);
 				setEmail_user(response.data.email_user);
-				setTanggal(response.data.tanggal);
+				setTanggal(response.data.createdAt);
 			} catch (error) {
 				if (error.response) {
 					setMsg(error.response.data.msg);

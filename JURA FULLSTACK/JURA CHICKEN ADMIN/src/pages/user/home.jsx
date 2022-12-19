@@ -8,7 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Loading from "../../components/loading";
 import Message from "../../components/error";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const HomeJura = () => {
 	const [search, setSearch] = useState("");
@@ -20,10 +20,7 @@ const HomeJura = () => {
 		const response = await axios.get("http://localhost:3100/menu/get");
 		setMenus(response.data);
 	};
-	const { user, isError, isSuccess, isLoading, message } = useSelector(
-		(state) => state.auth
-	);
-	const dispatch = useDispatch();
+	const { isError, isLoading } = useSelector((state) => state.auth);
 	return (
 		<div>
 			<div className="mt-5 mb-5 mr-5 ml-5">

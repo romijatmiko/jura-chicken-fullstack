@@ -10,8 +10,8 @@ import { verifyUser, adminOnly } from "../middleware/authUser.js";
 
 const router = express.Router();
 
-router.get("/users/get", verifyUser, adminOnly, getUsers);
-router.get("/users/get/:id", verifyUser, adminOnly, getUserById);
+router.get("/users/get", verifyUser, getUsers);
+router.get("/users/get/:id", verifyUser, getUserById);
 router.post("/users/add", verifyUser, adminOnly, createUser);
 router.patch("/users/update/:id", verifyUser, adminOnly, updateUser);
 router.delete("/users/delete/:id", verifyUser, adminOnly, deleteUser);

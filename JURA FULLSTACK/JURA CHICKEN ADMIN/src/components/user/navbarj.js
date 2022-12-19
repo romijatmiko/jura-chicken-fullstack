@@ -12,32 +12,30 @@ import { useParams } from "react-router-dom";
 
 export function NavbarJura() {
 	const [id, setId] = useState("");
-	const { user, isSuccess } = useSelector((state) => state.auth);
+	const { user, isSuccess, isLoading } = useSelector((state) => state.auth);
 	const { navbarLogin } = { isSuccess, user };
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		const user = async () => {
-			try {
-				const response = await axios.get(
-					`http://localhost:3100/users/get/${id}`
-				);
-				setId(response.data.uuid);
-				console.log(setId);
-			} catch (error) {
-				if (error.response) {
-					console.log(error);
-				}
-			}
-		};
-		user();
-	}, [id]);
-
+	const dispatch = useDispatch();
+	console.log(user);
+	// useEffect(() => {
+	// 	const user = async () => {
+	// 		try {
+	// 			const response = await axios.get(
+	// 				`http://localhost:3100/users/get/${id}`
+	// 			);
+	// 			setId(response.data.uuid);
+	// 			console.log(response.data);
+	// 		} catch (error) {
+	// 			if (error.response) {
+	// 			}
+	// 		}
+	// 	};
+	// 	user();
+	// }, [id]);
 	const logout = () => {
 		dispatch(LogOut());
 		dispatch(reset());
-		navigate("/");
+		navigate("/login");
 	};
 	const icons = <i class="fa-solid fa-user fa-lg"></i>;
 	const icons2 = <i class="fa-solid fa-wallet fa-lg"></i>;
@@ -60,7 +58,7 @@ export function NavbarJura() {
 						<Nav.Link href="/">Promo Menarik</Nav.Link>
 						<Nav.Link href="/">FAQ</Nav.Link>
 					</Nav>
-					{isSuccess || user ? (
+					{isSuccess ? (
 						<Nav>
 							<div className="ggz">
 								<Nav.Link href="/keranjang">
@@ -72,7 +70,7 @@ export function NavbarJura() {
 								</Nav.Link>
 							</div>
 							<NavDropdown title={icons} id="collasible-nav-dropdown">
-								<NavDropdown.Item href={"/profile" + id}>
+								<NavDropdown.Item href={"/profile/" + user.uuid}>
 									My Profile
 								</NavDropdown.Item>
 								<NavDropdown.Item href={"/profile" + id}>

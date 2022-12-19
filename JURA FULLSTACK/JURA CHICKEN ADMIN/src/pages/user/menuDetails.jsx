@@ -3,6 +3,8 @@ import { FooterJura } from "../../components/user/FooterJura";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Loading from "../../components/loading";
+import { useDispatch, useSelector } from "react-redux";
 
 const Details = () => {
 	const [nama_menu, setNama_menu] = useState("");
@@ -12,7 +14,7 @@ const Details = () => {
 	const [img, setImg] = useState("");
 	const [msg, setMsg] = useState("");
 	const { id } = useParams();
-
+	const { isError, isLoading } = useSelector((state) => state.auth);
 	useEffect(() => {
 		const getProductById = async () => {
 			try {
@@ -35,47 +37,54 @@ const Details = () => {
 	return (
 		<div>
 			<NavbarJura />
+
 			<section class="mt-5 mb-5 mr-5 ml-5">
-				<div class="container">
-					<article class="card">
-						<div class="card-body">
-							<div class="row">
-								<aside class="col-md-6">
-									<article class="gallery-wrap">
-										<a class="imga" href="#">
-											<img src={"/img/" + img} />
-										</a>
-									</article>
-								</aside>
-								<main class="col-md-6">
-									<article>
-										<h3 class="title">{nama_menu}</h3>
-										<hr />
-
-										<div class="mb-3">
-											<h6>{deskripsi}</h6>
-											<a></a>
-										</div>
-
-										<div class="form-group">
-											<label class="text-muted">Stok : {stok}</label>
-										</div>
-										<br></br>
-										<div class="mb-3">
-											<a class="price h4">Rp. {harga_menu}</a> <br />
-										</div>
-
-										<div class="mb-4">
-											<a href="#" class="btn btn-dark">
-												Add to card
+				{isLoading ? (
+					<div className="mb-5">
+						<Loading />
+					</div>
+				) : (
+					<div class="container">
+						<article class="card">
+							<div class="card-body">
+								<div class="row">
+									<aside class="col-md-6">
+										<article class="gallery-wrap">
+											<a class="imga" href="#">
+												<img src={"/img/" + img} />
 											</a>
-										</div>
-									</article>
-								</main>
+										</article>
+									</aside>
+									<main class="col-md-6">
+										<article>
+											<h3 class="title">{nama_menu}</h3>
+											<hr />
+
+											<div class="mb-3">
+												<h6>{deskripsi}</h6>
+												<a></a>
+											</div>
+
+											<div class="form-group">
+												<label class="text-muted">Stok : {stok}</label>
+											</div>
+											<br></br>
+											<div class="mb-3">
+												<a class="price h4">Rp. {harga_menu}</a> <br />
+											</div>
+
+											<div class="mb-4">
+												<a href="#" class="btn btn-dark">
+													Add to card
+												</a>
+											</div>
+										</article>
+									</main>
+								</div>
 							</div>
-						</div>
-					</article>
-				</div>
+						</article>
+					</div>
+				)}
 			</section>
 			<FooterJura />
 		</div>

@@ -18,8 +18,10 @@ import Keranjang from "./pages/user/keranjang";
 import Register from "./pages/user/register";
 import Details from "./pages/user/menuDetails";
 import { NavbarJura } from "./components/user/navbarj";
+import { useDispatch, useSelector } from "react-redux";
 
 function App() {
+	const { isSuccess } = useSelector((state) => state.auth);
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -96,7 +98,14 @@ function App() {
 						</UserRoute>
 					}
 				/>
-				<Route path="/register" element={<Register />} />
+				<Route
+					path="/register"
+					element={
+						<UserRoute>
+							<Register />
+						</UserRoute>
+					}
+				/>
 				<Route
 					path="/"
 					element={
