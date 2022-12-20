@@ -5,32 +5,18 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "./logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut, reset } from "../../auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export function NavbarJura() {
 	const [id, setId] = useState("");
-	const { user, isSuccess, isLoading } = useSelector((state) => state.auth);
+	const { user, isSuccess } = useSelector((state) => state.auth);
 	const { navbarLogin } = { isSuccess, user };
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	// useEffect(() => {
-	// 	const user = async () => {
-	// 		try {
-	// 			const response = await axios.get(
-	// 				`http://localhost:3100/users/get/${id}`
-	// 			);
-	// 			setId(response.data.uuid);
-	// 			console.log(response.data);
-	// 		} catch (error) {
-	// 			if (error.response) {
-	// 			}
-	// 		}
-	// 	};
-	// 	user();
-	// }, [id]);
+	const location = useLocation();
 	const logout = () => {
 		dispatch(LogOut());
 		dispatch(reset());

@@ -47,6 +47,7 @@ export default function Profile() {
 				}
 			}
 		};
+		console.log(kode_pos);
 		user();
 	}, [id]);
 	return (

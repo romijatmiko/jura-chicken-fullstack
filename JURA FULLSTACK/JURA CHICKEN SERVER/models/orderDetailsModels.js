@@ -17,11 +17,13 @@ const orderDetailsModels = db.define(
 				notEmpty: true,
 			},
 		},
-		order_items: [
-			{
-				id_keranjang: { type: DataTypes.INTEGER, required: true },
+		id_keranjang: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				notEmpty: true,
 			},
-		],
+		},
 		total_price: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
@@ -51,7 +53,7 @@ const orderDetailsModels = db.define(
 			type: DataTypes.DATE,
 		},
 		id_user: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
@@ -63,10 +65,10 @@ const orderDetailsModels = db.define(
 	}
 );
 
-cart_jura.hasMany(order_details);
-order_details.belongsTo(cart_jura, { foreignKey: "id_keranjang" });
+cart_jura.hasMany(orderDetailsModels);
+orderDetailsModels.belongsTo(cart_jura, { foreignKey: "id_keranjang" });
 
-user_jura.hasMany(order_details);
-order_details.belongsTo(user_jura, { foreignKey: "id_user" });
+user_jura.hasMany(orderDetailsModels);
+orderDetailsModels.belongsTo(user_jura, { foreignKey: "id_user" });
 
 export default orderDetailsModels;

@@ -1,5 +1,4 @@
 import { Row, Col, Container } from "react-bootstrap";
-import { NavbarJura } from "../../components/user/navbarj";
 import { FooterJura } from "../../components/user/FooterJura";
 import React, { useState, useEffect } from "react";
 import axios from "axios";

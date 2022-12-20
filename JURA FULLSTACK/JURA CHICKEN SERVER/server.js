@@ -7,6 +7,8 @@ import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/userRoute.js";
 import ProductRoute from "./routes/menuRoute.js";
 import AuthRoute from "./routes/authRoute.js";
+import cart_jura from "./models/keranjangModels.js";
+import orderDetailsModels from "./models/orderDetailsModels.js";
 dotenv.config();
 
 const app = express();

@@ -36,10 +36,6 @@ const user_jura = db.define(
 			type: DataTypes.STRING,
 			allowNull: true,
 			unique: true,
-			validate: {
-				notEmpty: true,
-				isEmail: true,
-			},
 		},
 		alamat: {
 			type: DataTypes.STRING,
@@ -55,10 +51,6 @@ const user_jura = db.define(
 			type: DataTypes.STRING,
 			allowNull: true,
 			unique: false,
-			validate: {
-				notEmpty: true,
-				isEmail: true,
-			},
 		},
 		password_user: {
 			type: DataTypes.STRING,

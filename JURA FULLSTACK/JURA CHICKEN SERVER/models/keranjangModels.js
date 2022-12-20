@@ -17,12 +17,18 @@ const cart_jura = db.define(
 				notEmpty: true,
 			},
 		},
-		cartItems: [
-			{
-				qty: { type: DataTypes.INTEGER, required: true },
-				id_menu: { type: DataTypes.INTEGER, required: true },
+		qty: {
+			type: DataTypes.INTEGER,
+			required: true,
+		},
+		id_menu: {
+			type: DataTypes.STRING,
+			defaultValue: DataTypes.UUIDV4,
+			allowNull: false,
+			validate: {
+				notEmpty: true,
 			},
-		],
+		},
 		total_price: {
 			type: DataTypes.INTEGER,
 			allowNull: false,

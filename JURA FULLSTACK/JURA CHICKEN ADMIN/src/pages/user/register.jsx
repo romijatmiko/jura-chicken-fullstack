@@ -2,32 +2,48 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { LoginUser, reset } from "../../auth/authSlice";
+import axios from "axios";
 import { Card } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useSelector, useDispatch } from "react-redux";
 
 const Register = () => {
+	const [nama_user, setNama_user] = useState("");
 	const [email_user, setEmail_user] = useState("");
-	const [password, setPassword] = useState("");
+	const [no_hp, setNo_hp] = useState("");
+	const [alamat, setAlamat] = useState("");
+	const [kabupaten, SetKabupaten] = useState("");
+	const [kode_pos, setKode_pos] = useState("");
+	const [password_user, setPassword_user] = useState("");
+	const [confPassword, setConfPassword] = useState("");
+	const [role, setRole] = useState("");
+	const [msg, setMsg] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { user, isError, isSuccess, isLoading, message } = useSelector(
-		(state) => state.auth
-	);
+	const { isError, isLoading } = useSelector((state) => state.auth);
 
-	useEffect(() => {
-		if (user || isSuccess) {
-			navigate("/");
-		}
-		dispatch(reset());
-	}, [user, isSuccess, dispatch, navigate]);
-
-	const Auth = (e) => {
+	const hehehe = async (e) => {
 		e.preventDefault();
-		dispatch(LoginUser({ email_user, password }));
+		try {
+			await axios.post("http://localhost:3100/users/add", {
+				nama_user: nama_user,
+				email_user: email_user,
+				no_hp: no_hp,
+				alamat: alamat,
+				kabupaten: kabupaten,
+				kode_pos: kode_pos,
+				password_user: password_user,
+				confPassword: confPassword,
+				role: "user",
+			});
+			navigate("/login");
+		} catch (error) {
+			if (error.response) {
+				setMsg(error.response.data.msg);
+			}
+		}
 	};
 
 	return (
@@ -37,19 +53,19 @@ const Register = () => {
 					<Card className="hehe" border="primary" style={{ width: "35rem" }}>
 						<strong class="card-header">Register Form Jura Chicken</strong>
 						<div class="card-body">
-							<Form onSubmit={Auth}>
-								{isError && <p className="has-text-centered">{message}</p>}
-								<Form.Group className="mb-3" controlId="formBasicEmail">
+							<Form onSubmit={hehehe}>
+								{isError && <p className="has-text-centered">{msg}</p>}
+								<Form.Group className="mb-3" controlId="nama">
 									<Form.Label>Nama</Form.Label>
 									<Form.Control
 										type="text"
 										className="input"
-										value={email_user}
-										onChange={(e) => setEmail_user(e.target.value)}
+										value={nama_user}
+										onChange={(e) => setNama_user(e.target.value)}
 										placeholder="Tuliskan Nama Kamu"
 									/>
 								</Form.Group>
-								<Form.Group className="mb-3" controlId="formBasicEmail">
+								<Form.Group className="mb-3" controlId="email">
 									<Form.Label>Email address</Form.Label>
 									<Form.Control
 										type="text"
@@ -59,70 +75,79 @@ const Register = () => {
 										placeholder="Email"
 									/>
 								</Form.Group>
-								<Form.Group className="mb-3" controlId="formBasicEmail">
+								<Form.Group className="mb-3" controlId="nohp">
 									<Form.Label>No HP</Form.Label>
 									<Form.Control
 										type="text"
 										className="input"
-										value={email_user}
-										onChange={(e) => setEmail_user(e.target.value)}
+										value={no_hp}
+										onChange={(e) => setNo_hp(e.target.value)}
 										placeholder="No HP"
 									/>
 								</Form.Group>
 								<Row>
 									<Col>
-										<Form.Group className="mb-3" controlId="formBasicEmail">
+										<Form.Group className="mb-3" controlId="alamat">
 											<Form.Label>Alamat</Form.Label>
 											<Form.Control
 												type="text"
 												className="input"
-												value={email_user}
-												onChange={(e) => setEmail_user(e.target.value)}
+												value={alamat}
+												onChange={(e) => setAlamat(e.target.value)}
 												placeholder="Tuliskan Alamat Kamu"
 											/>
 										</Form.Group>
 									</Col>
 									<Col>
-										<Form.Group className="mb-3" controlId="formBasicEmail">
+										<Form.Group className="mb-3" controlId="kabupaten">
 											<Form.Label>Kabupaten/Kota</Form.Label>
 											<Form.Control
 												type="text"
 												className="input"
-												value={email_user}
-												onChange={(e) => setEmail_user(e.target.value)}
+												value={kabupaten}
+												onChange={(e) => SetKabupaten(e.target.value)}
 												placeholder="Tuliskan Kota Kamu"
 											/>
 										</Form.Group>
 									</Col>
 								</Row>
-								<Form.Group className="mb-3" controlId="formBasicEmail">
+								<Form.Group className="mb-3" controlId="kodepos">
 									<Form.Label>Kode Pos</Form.Label>
 									<Form.Control
 										type="text"
 										className="input"
-										value={email_user}
-										onChange={(e) => setEmail_user(e.target.value)}
+										value={kode_pos}
+										onChange={(e) => setKode_pos(e.target.value)}
 										placeholder="Tuliskan Nama Kamu"
 									/>
 								</Form.Group>
-								<Form.Group className="mb-3" controlId="formBasicPassword">
+								<Form.Group className="mb-3" controlId="password">
 									<Form.Label>Password</Form.Label>
 									<Form.Control
 										type="password"
 										className="input"
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
+										value={password_user}
+										onChange={(e) => setPassword_user(e.target.value)}
 										placeholder="******"
 									/>
 								</Form.Group>
-								<Form.Group className="mb-3" controlId="formBasicPassword">
+								<Form.Group className="mb-3" controlId="confirm-password">
 									<Form.Label>Confirm Password</Form.Label>
 									<Form.Control
 										type="password"
 										className="input"
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
+										value={confPassword}
+										onChange={(e) => setConfPassword(e.target.value)}
 										placeholder="******"
+									/>
+								</Form.Group>
+								<Form.Group className="mb-3" controlId="role">
+									<Form.Label></Form.Label>
+									<Form.Control
+										type="hidden"
+										className="input"
+										value={"user"}
+										onChange={(e) => setRole(e.target.value)}
 									/>
 								</Form.Group>
 								<Form.Group className="mb-3" controlId="formBasicCheckbox">
