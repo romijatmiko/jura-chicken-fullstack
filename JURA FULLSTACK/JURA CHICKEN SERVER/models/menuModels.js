@@ -10,6 +10,7 @@ const menu_jura = db.define(
 			type: DataTypes.STRING,
 			defaultValue: DataTypes.UUIDV4,
 			allowNull: false,
+			primaryKey: true,
 			validate: {
 				notEmpty: true,
 			},

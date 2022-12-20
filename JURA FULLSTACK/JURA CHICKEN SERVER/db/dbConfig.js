@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize("jurac", "postgres", "romi", {
+const db = new Sequelize("jurao", "postgres", "romi", {
 	host: "localhost",
 	dialect: "postgres",
 });

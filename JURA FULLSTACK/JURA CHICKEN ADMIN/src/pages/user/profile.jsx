@@ -7,8 +7,6 @@ import {
 	MDBCardBody,
 	MDBCardImage,
 	MDBBtn,
-	MDBBreadcrumb,
-	MDBBreadcrumbItem,
 	MDBProgress,
 	MDBProgressBar,
 	MDBIcon,

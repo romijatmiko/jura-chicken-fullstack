@@ -115,7 +115,6 @@
 .App {
   text-align: center;
 }
-.input-group {}
 .badge {
   padding-left: 9px;
   padding-right: 9px;
@@ -166,9 +165,6 @@
 .flex-container>div {
   background-color: #f1f1f1;
   margin: 25px;
-}
-.card {
-  /* Added */
 }
 .contd{
   display: flex;

@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -58,6 +57,16 @@ const Register = () => {
 										value={email_user}
 										onChange={(e) => setEmail_user(e.target.value)}
 										placeholder="Email"
+									/>
+								</Form.Group>
+								<Form.Group className="mb-3" controlId="formBasicEmail">
+									<Form.Label>No HP</Form.Label>
+									<Form.Control
+										type="text"
+										className="input"
+										value={email_user}
+										onChange={(e) => setEmail_user(e.target.value)}
+										placeholder="No HP"
 									/>
 								</Form.Group>
 								<Row>

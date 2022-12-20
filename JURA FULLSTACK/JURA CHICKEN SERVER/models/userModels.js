@@ -10,6 +10,7 @@ const user_jura = db.define(
 			type: DataTypes.STRING,
 			defaultValue: DataTypes.UUIDV4,
 			allowNull: false,
+			primaryKey: true,
 			validate: {
 				notEmpty: true,
 			},
@@ -26,6 +27,34 @@ const user_jura = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: true,
+			validate: {
+				notEmpty: true,
+				isEmail: true,
+			},
+		},
+		no_hp: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			unique: true,
+			validate: {
+				notEmpty: true,
+				isEmail: true,
+			},
+		},
+		alamat: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			unique: false,
+		},
+		kabupaten: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			unique: false,
+		},
+		kode_pos: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			unique: false,
 			validate: {
 				notEmpty: true,
 				isEmail: true,

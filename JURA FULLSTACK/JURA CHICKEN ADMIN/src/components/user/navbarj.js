@@ -16,7 +16,6 @@ export function NavbarJura() {
 	const { navbarLogin } = { isSuccess, user };
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	console.log(user);
 	// useEffect(() => {
 	// 	const user = async () => {
 	// 		try {
