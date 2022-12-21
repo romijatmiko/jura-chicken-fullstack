@@ -21,12 +21,18 @@ const cart_jura = db.define(
 			type: DataTypes.INTEGER,
 			required: true,
 		},
-		id_menu: {
+		menu_id: {
 			type: DataTypes.STRING,
-			defaultValue: DataTypes.UUIDV4,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
+			references: {
+				model: menu_jura, // 'Movies' would also work
+				key: "uuid",
+			},
+		},
+		user_id: {
+			type: DataTypes.STRING,
+			references: {
+				model: user_jura, // 'Movies' would also work
+				key: "uuid",
 			},
 		},
 		total_price: {
@@ -42,10 +48,8 @@ const cart_jura = db.define(
 	}
 );
 
-cart_jura.hasMany(menu_jura);
-menu_jura.belongsTo(cart_jura, { foreignKey: "id_menu" });
-
-user_jura.hasOne(cart_jura); // A HasOne B
 cart_jura.belongsTo(user_jura); // A BelongsTo B
+menu_jura.belongsTo(cart_jura); // A BelongsTo B
+cart_jura.belongsTo(menu_jura); // A BelongsTo B
 
 export default cart_jura;

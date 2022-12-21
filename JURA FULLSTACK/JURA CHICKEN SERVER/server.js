@@ -9,6 +9,8 @@ import ProductRoute from "./routes/menuRoute.js";
 import AuthRoute from "./routes/authRoute.js";
 import cart_jura from "./models/keranjangModels.js";
 import orderDetailsModels from "./models/orderDetailsModels.js";
+import keranjangRoute from "./routes/keranjangRoute.js";
+
 dotenv.config();
 
 const app = express();
@@ -42,6 +44,7 @@ app.use(
 	})
 );
 app.use(express.json());
+app.use(keranjangRoute);
 app.use(UserRoute);
 app.use(ProductRoute);
 app.use(AuthRoute);

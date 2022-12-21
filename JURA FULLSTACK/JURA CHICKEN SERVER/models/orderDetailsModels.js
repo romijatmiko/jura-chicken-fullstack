@@ -23,6 +23,17 @@ const orderDetailsModels = db.define(
 			validate: {
 				notEmpty: true,
 			},
+			references: {
+				model: cart_jura, // 'Movies' would also work
+				key: "uuid",
+			},
+		},
+		user_id: {
+			type: DataTypes.STRING,
+			references: {
+				model: user_jura, // 'Movies' would also work
+				key: "uuid",
+			},
 		},
 		total_price: {
 			type: DataTypes.INTEGER,
@@ -52,23 +63,15 @@ const orderDetailsModels = db.define(
 		dikirimTanggal: {
 			type: DataTypes.DATE,
 		},
-		id_user: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
-		},
 	},
 	{
 		freezeTableName: true,
 	}
 );
 
-cart_jura.hasMany(orderDetailsModels);
-orderDetailsModels.belongsTo(cart_jura, { foreignKey: "id_keranjang" });
+// orderDetailsModels.belongsTo(cart_jura, { foreignKey: "id_keranjang" });
 
-user_jura.hasMany(orderDetailsModels);
-orderDetailsModels.belongsTo(user_jura, { foreignKey: "id_user" });
+// user_jura.hasMany(orderDetailsModels);
+// orderDetailsModels.belongsTo(user_jura, { foreignKey: "id_user" });
 
 export default orderDetailsModels;
