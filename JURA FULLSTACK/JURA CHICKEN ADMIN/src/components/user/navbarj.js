@@ -48,7 +48,7 @@ export function NavbarJura() {
 					{isSuccess ? (
 						<Nav>
 							<div className="ggz">
-								<Nav.Link href="/keranjang">
+								<Nav.Link href={"/keranjang/" + user.uuid}>
 									<i class="fa-solid fa-cart-shopping fa-lg"></i>
 									<span class="badge badge-warning" id="lblCartCount">
 										{" "}

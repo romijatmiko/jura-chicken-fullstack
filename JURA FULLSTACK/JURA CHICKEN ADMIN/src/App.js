@@ -20,6 +20,7 @@ import Details from "./pages/user/menuDetails";
 import { NavbarJura } from "./components/user/navbarj";
 import { useDispatch, useSelector } from "react-redux";
 import { CartProvider } from "react-use-cart";
+import Alamat from "./pages/user/orderAddres";
 
 function App() {
 	const { isSuccess } = useSelector((state) => state.auth);
@@ -132,11 +133,21 @@ function App() {
 					}
 				/>
 				<Route
-					path="/keranjang"
+					path="/keranjang/:id"
 					element={
 						<UserRoute>
 							<CartProvider>
 								<Keranjang />
+							</CartProvider>
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/details"
+					element={
+						<UserRoute>
+							<CartProvider>
+								<Alamat />
 							</CartProvider>
 						</UserRoute>
 					}

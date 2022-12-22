@@ -15,7 +15,7 @@ import {
 	MDBTooltip,
 	MDBTypography,
 } from "mdb-react-ui-kit";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavbarJura } from "../../components/user/navbarj";
 import { FooterJura } from "../../components/user/FooterJura";
 import Loading from "../../components/loading";
@@ -31,9 +31,14 @@ export default function Keranjang() {
 		updateItemQuantity,
 		removeItem,
 		emptyCart,
+		totalItems,
+		totalUniqueItems,
 	} = useCart();
-	const [item, setMenus] = useState([]);
-	const { isError, isLoading } = useSelector((state) => state.auth);
+	const [kocak, setKocak] = useState("");
+	useEffect(() => {
+		setKocak(items);
+	}, []);
+	const { isError, isLoading, user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	return (
 		<section className="h-100 gradient-custom">
@@ -55,71 +60,72 @@ export default function Keranjang() {
 									</MDBTypography>
 								</MDBCardHeader>
 								<MDBCardBody>
-									{items.map((item, index) => {
-										<MDBRow>
-											<MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
-												<MDBRipple
-													rippleTag="div"
-													rippleColor="light"
-													className="bg-image rounded hover-zoom hover-overlay">
-													<img src={item.img} className="w-100" />
-													<a href="#!">
-														<div
-															className="mask"
-															style={{
-																backgroundColor: "rgba(251, 251, 251, 0.2)",
-															}}></div>
-													</a>
-												</MDBRipple>
-											</MDBCol>
+									<MDBRow>
+										{items.map((kocak, index) => (
+											<>
+												<MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
+													<MDBRipple
+														rippleTag="div"
+														rippleColor="light"
+														className="bg-image rounded hover-zoom hover-overlay">
+														<img src={"/img/" + kocak.img} className="w-100" />
+														<a href="#!">
+															<div
+																className="mask"
+																style={{
+																	backgroundColor: "rgba(251, 251, 251, 0.2)",
+																}}></div>
+														</a>
+													</MDBRipple>
+												</MDBCol>
+												<MDBCol lg="5" md="6" className=" mb-4 mb-lg-0">
+													<p>
+														<strong>{kocak.nama_menu}</strong>
+													</p>
+													<p>Color: blue</p>
+													<p>Size: M</p>
 
-											<MDBCol lg="5" md="6" className=" mb-4 mb-lg-0">
-												<p>
-													<strong>{item.nama_menu}</strong>
-												</p>
-												<p>Color: blue</p>
-												<p>Size: M</p>
-
-												<MDBTooltip
-													wrapperProps={{ size: "sm" }}
-													wrapperClass="me-1 mb-2"
-													title="Remove item">
-													<MDBIcon fas icon="trash" />
-												</MDBTooltip>
-
-												<MDBTooltip
-													wrapperProps={{ size: "sm", color: "danger" }}
-													wrapperClass="me-1 mb-2"
-													title="Move to the wish list">
-													<MDBIcon fas icon="heart" />
-												</MDBTooltip>
-											</MDBCol>
-											<MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
-												<div
-													className="d-flex mb-4"
-													style={{ maxWidth: "300px" }}>
-													<MDBBtn className="px-3 me-2">
-														<MDBIcon fas icon="minus" />
+													<MDBBtn
+														class="ripple ripple-surface ripple-surface-light btn btn-primary"
+														onClick={() => removeItem(kocak.id)}>
+														<MDBIcon fas icon="trash" />
 													</MDBBtn>
+												</MDBCol>
+												<MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
+													<div
+														className="d-flex mb-4"
+														style={{ maxWidth: "300px" }}>
+														<MDBBtn
+															onClick={() =>
+																updateItemQuantity(kocak.id, kocak.quantity - 1)
+															}
+															className="px-3 me-2">
+															<MDBIcon fas icon="minus" />
+														</MDBBtn>
 
-													<MDBInput
-														defaultValue={item.quantity}
-														min={0}
-														type="number"
-														label="Quantity"
-													/>
+														<MDBInput
+															defaultValue={kocak.quantity}
+															min={0}
+															type="number"
+															label="Quantity"
+														/>
 
-													<MDBBtn className="px-3 ms-2">
-														<MDBIcon fas icon="plus" />
-													</MDBBtn>
-												</div>
+														<MDBBtn
+															onClick={() =>
+																updateItemQuantity(kocak.id, kocak.quantity + 1)
+															}
+															className="px-3 ms-2">
+															<MDBIcon fas icon="plus" />
+														</MDBBtn>
+													</div>
 
-												<p className="text-start text-md-center">
-													<strong>{item.price}</strong>
-												</p>
-											</MDBCol>
-										</MDBRow>;
-									})}
+													<p className="text-start text-md-center">
+														<strong> Rp. {kocak.price}</strong>
+													</p>
+												</MDBCol>
+											</>
+										))}
+									</MDBRow>
 
 									<hr className="my-4" />
 								</MDBCardBody>
@@ -177,11 +183,11 @@ export default function Keranjang() {
 									<MDBListGroup flush>
 										<MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
 											Products
-											<span>$53.98</span>
+											<span>Rp. {cartTotal}</span>
 										</MDBListGroupItem>
 										<MDBListGroupItem className="d-flex justify-content-between align-items-center px-0">
-											Shipping
-											<span>Gratis</span>
+											Total Menu
+											<span>{totalItems}</span>
 										</MDBListGroupItem>
 										<MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
 											<div>
@@ -191,12 +197,12 @@ export default function Keranjang() {
 												</strong>
 											</div>
 											<span>
-												<strong>$53.98</strong>
+												<strong>Rp.{cartTotal}</strong>
 											</span>
 										</MDBListGroupItem>
 									</MDBListGroup>
 
-									<MDBBtn block size="lg">
+									<MDBBtn href={"/order/details"} block size="lg">
 										Go to checkout
 									</MDBBtn>
 								</MDBCardBody>
