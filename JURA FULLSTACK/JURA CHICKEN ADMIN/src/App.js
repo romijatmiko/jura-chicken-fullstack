@@ -19,6 +19,7 @@ import Register from "./pages/user/register";
 import Details from "./pages/user/menuDetails";
 import { NavbarJura } from "./components/user/navbarj";
 import { useDispatch, useSelector } from "react-redux";
+import { CartProvider } from "react-use-cart";
 
 function App() {
 	const { isSuccess } = useSelector((state) => state.auth);
@@ -103,8 +104,10 @@ function App() {
 					path="/"
 					element={
 						<UserRoute>
-							<NavbarJura />
-							<HomeJura />
+							<CartProvider>
+								<NavbarJura />
+								<HomeJura />
+							</CartProvider>
 						</UserRoute>
 					}
 				/>
@@ -112,7 +115,9 @@ function App() {
 					path="/profile/:id"
 					element={
 						<UserRoute>
-							<Profile />
+							<CartProvider>
+								<Profile />
+							</CartProvider>
 						</UserRoute>
 					}
 				/>
@@ -120,7 +125,9 @@ function App() {
 					path="/menu/:id"
 					element={
 						<UserRoute>
-							<Details />
+							<CartProvider>
+								<Details />
+							</CartProvider>
 						</UserRoute>
 					}
 				/>
@@ -128,7 +135,9 @@ function App() {
 					path="/keranjang"
 					element={
 						<UserRoute>
-							<Keranjang />
+							<CartProvider>
+								<Keranjang />
+							</CartProvider>
 						</UserRoute>
 					}
 				/>

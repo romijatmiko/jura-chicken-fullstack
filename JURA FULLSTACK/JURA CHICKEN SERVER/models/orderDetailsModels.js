@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../db/dbConfig.js";
-import cart_jura from "./keranjangModels.js";
-import user_jura from "./userModels.js";
+import keranjangModels from "./keranjangModels.js";
+import userModels from "./userModels.js";
 
 const { DataTypes } = Sequelize;
 
@@ -17,24 +17,20 @@ const orderDetailsModels = db.define(
 				notEmpty: true,
 			},
 		},
-		id_keranjang: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: true,
-			},
-			references: {
-				model: cart_jura, // 'Movies' would also work
-				key: "uuid",
-			},
-		},
-		user_id: {
-			type: DataTypes.STRING,
-			references: {
-				model: user_jura, // 'Movies' would also work
-				key: "uuid",
-			},
-		},
+		// cart_id: {
+		// 	type: DataTypes.STRING,
+		// 	references: {
+		// 		model: keranjangMenu, // 'Movies' would also work
+		// 		key: "uuid",
+		// 	},
+		// },
+		// user_id: {
+		// 	type: DataTypes.STRING,
+		// 	references: {
+		// 		model: userModels, // 'Movies' would also work
+		// 		key: "uuid",
+		// 	},
+		// },
 		total_price: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
@@ -69,9 +65,12 @@ const orderDetailsModels = db.define(
 	}
 );
 
-// orderDetailsModels.belongsTo(cart_jura, { foreignKey: "id_keranjang" });
+keranjangModels.hasOne(orderDetailsModels);
+// keranjangMenu.belongsTo(orderDetailsModels, { foreignKey: "cart_id" });
+orderDetailsModels.belongsTo(keranjangModels);
 
-// user_jura.hasMany(orderDetailsModels);
-// orderDetailsModels.belongsTo(user_jura, { foreignKey: "id_user" });
+userModels.hasMany(orderDetailsModels);
+orderDetailsModels.belongsTo(userModels);
+// orderDetailsModels.belongsTo(userModels, { foreignKey: "id_user" });
 
 export default orderDetailsModels;

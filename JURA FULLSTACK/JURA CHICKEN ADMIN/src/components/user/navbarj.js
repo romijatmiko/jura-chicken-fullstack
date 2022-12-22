@@ -9,8 +9,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useCart } from "react-use-cart";
 
 export function NavbarJura() {
+	const { totalItems } = useCart();
 	const [id, setId] = useState("");
 	const { user, isSuccess } = useSelector((state) => state.auth);
 	const { navbarLogin } = { isSuccess, user };
@@ -50,7 +52,7 @@ export function NavbarJura() {
 									<i class="fa-solid fa-cart-shopping fa-lg"></i>
 									<span class="badge badge-warning" id="lblCartCount">
 										{" "}
-										7{" "}
+										{totalItems}{" "}
 									</span>
 								</Nav.Link>
 							</div>

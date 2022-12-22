@@ -20,6 +20,7 @@ const HomeJura = () => {
 		setMenus(response.data);
 	};
 	const { isError, isLoading } = useSelector((state) => state.auth);
+
 	return (
 		<div>
 			<div className="mt-5 mb-5 mr-5 ml-5">

@@ -1,19 +1,28 @@
-import cart_jura from "../models/keranjangModels.js";
 import { Op } from "sequelize";
 import user_jura from "../models/userModels.js";
 import menu_jura from "../models/menuModels.js";
+import order_details from "../models/orderDetailsModels.js";
+import cart_jura from "../models/keranjangModels.js";
 
 export const getOrders = async (req, res) => {
 	try {
 		let response;
 		const useratt = ["uuid", "nama_user"];
-		const attributes = ["uuid", "qty", "total_price"];
-		response = await cart_jura.findAll({
-			// where: { uuid: req.params.id },
+		const attributes = [
+			"uuid",
+			"total_price",
+			"paymentMethod",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"dikirimTanggal",
+		];
+		response = await order_details.findAll({
+			where: { userJuraUuid: req.params.id },
 			attributes: attributes,
 			include: [
 				{ model: user_jura, attributes: useratt },
-				{ model: menu_jura },
+				{ model: cart_jura, include: [menu_jura] },
 			],
 		});
 		res.status(200).json(response);
@@ -23,24 +32,35 @@ export const getOrders = async (req, res) => {
 };
 
 export const createOrders = async (req, res) => {
-	const { uuid, qty, menu_id, total_price } = req.body;
+	const {
+		uuid,
+		paymentMethod,
+		total_price,
+		sudahBayar,
+		sudahDikirim,
+		id_keranjang,
+		cartJuraUuid,
+		userJuraUuid,
+	} = req.body;
 	try {
-		await cart_jura.create({
+		await order_details.create({
 			uuid: uuid,
-			qty: qty,
-			menu_id: menu_id,
+			paymentMethod: paymentMethod,
 			total_price: total_price,
-			menuJuraUuid: menu_id,
-			userJuraUuid: req.params.id,
+			sudahBayar: sudahBayar,
+			sudahDikirim: sudahDikirim,
+			id_keranjang: id_keranjang,
+			cartJuraUuid: cartJuraUuid,
+			userJuraUuid: userJuraUuid,
 		});
-		res.status(201).json({ msg: "menu_jura Created Successfuly" });
+		res.status(201).json({ msg: "aikfjwai Created Successfuly" });
 	} catch (error) {
 		res.status(500).json({ msg: error.message });
 	}
 };
 
 export const updateOrders = async (req, res) => {
-	const update = await cart_jura.findOne({
+	const update = await order_details.findOne({
 		where: {
 			JuraUuid: req.params.id,
 		},
@@ -69,7 +89,7 @@ export const updateOrders = async (req, res) => {
 };
 
 export const deleteOrders = async (req, res) => {
-	const del = await cart_jura.findOne({
+	const del = await order_details.findOne({
 		where: {
 			JuraUuid: req.params.id,
 		},

@@ -1,7 +1,8 @@
 import { Sequelize } from "sequelize";
 import db from "../db/dbConfig.js";
+import userModels from "./userModels.js";
+import keranjangMenu from "./keranjangMenu.js";
 import menu_jura from "./menuModels.js";
-import user_jura from "./userModels.js";
 
 const { DataTypes } = Sequelize;
 
@@ -17,24 +18,20 @@ const cart_jura = db.define(
 				notEmpty: true,
 			},
 		},
-		qty: {
-			type: DataTypes.INTEGER,
-			required: true,
-		},
-		menu_id: {
-			type: DataTypes.STRING,
-			references: {
-				model: menu_jura, // 'Movies' would also work
-				key: "uuid",
-			},
-		},
-		user_id: {
-			type: DataTypes.STRING,
-			references: {
-				model: user_jura, // 'Movies' would also work
-				key: "uuid",
-			},
-		},
+		// list_menu: {
+		// 	type: DataTypes.STRING,
+		// 	references: {
+		// 		model: keranjangMenu, // 'Movies' would also work
+		// 		key: "uuid",
+		// 	},
+		// },
+		// user_id: {
+		// 	type: DataTypes.STRING,
+		// 	references: {
+		// 		model: userModels, // 'Movies' would also work
+		// 		key: "uuid",
+		// 	},
+		// },
 		total_price: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
@@ -48,8 +45,12 @@ const cart_jura = db.define(
 	}
 );
 
-cart_jura.belongsTo(user_jura); // A BelongsTo B
-menu_jura.belongsTo(cart_jura); // A BelongsTo B
-cart_jura.belongsTo(menu_jura); // A BelongsTo B
+userModels.hasOne(cart_jura);
+// cart_jura.belongsTo(userModels, { foreignKey: "user_id" });
+cart_jura.belongsTo(userModels);
+
+menu_jura.hasMany(cart_jura);
+// keranjangMenu.belongsTo(cart_jura, { foreignKey: "list_menu" });
+cart_jura.belongsTo(keranjangMenu);
 
 export default cart_jura;

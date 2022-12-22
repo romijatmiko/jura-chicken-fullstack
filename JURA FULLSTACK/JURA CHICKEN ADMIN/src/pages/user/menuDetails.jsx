@@ -5,14 +5,19 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/loading";
 import { useDispatch, useSelector } from "react-redux";
+import { useThemeHook } from "../../Cart/context";
+import { useCart } from "react-use-cart";
+import { Button } from "react-bootstrap";
 
-const Details = () => {
+export const Details = () => {
 	const [nama_menu, setNama_menu] = useState("");
 	const [harga_menu, setHarga_menu] = useState("");
 	const [deskripsi, setDeskripsi] = useState("");
 	const [stok, setStok] = useState("");
 	const [img, setImg] = useState("");
+	const [uuid, setUuid] = useState("");
 	const [msg, setMsg] = useState("");
+	const [data, setData] = useState("");
 	const { id } = useParams();
 	const { isError, isLoading } = useSelector((state) => state.auth);
 	useEffect(() => {
@@ -26,6 +31,8 @@ const Details = () => {
 				setStok(response.data.stok);
 				setDeskripsi(response.data.deskripsi);
 				setImg(response.data.img);
+				setUuid(response.data.uuid);
+				setData(response.data);
 			} catch (error) {
 				if (error.response) {
 					setMsg(error.response.data.msg);
@@ -34,6 +41,19 @@ const Details = () => {
 		};
 		getProductById();
 	}, [id]);
+	const hehehe = [
+		{
+			id: uuid,
+			nama_menu: nama_menu,
+			img: img,
+			deskripsi: deskripsi,
+			stok: stok,
+			price: harga_menu,
+			quantity: 1,
+		},
+	];
+	const { items, addItem, emptyCart } = useCart();
+
 	return (
 		<div>
 			<NavbarJura />
@@ -74,9 +94,15 @@ const Details = () => {
 											</div>
 
 											<div class="mb-4">
-												<a href="#" class="btn btn-dark">
-													Add to card
-												</a>
+												<div>
+													{hehehe.map((p) => (
+														<div key={p.id}>
+															<Button onClick={() => addItem(p)}>
+																Add to cart
+															</Button>
+														</div>
+													))}
+												</div>
 											</div>
 										</article>
 									</main>

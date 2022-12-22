@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../db/dbConfig.js";
-import cart_jura from "./keranjangModels.js";
-import menu_jura from "./menuModels.js";
+import menuModels from "./menuModels.js";
 
 const { DataTypes } = Sequelize;
 
@@ -26,24 +25,20 @@ const list_menu = db.define(
 			type: DataTypes.STRING,
 			allowNull: true,
 		},
-		menu_id: {
-			type: DataTypes.STRING,
-			references: {
-				model: menu_jura, // 'Movies' would also work
-				key: "uuid",
-			},
-		},
+		// menu_id: {
+		// 	type: DataTypes.STRING,
+		// 	references: {
+		// 		model: menuModels, // 'Movies' would also work
+		// 		key: "uuid",
+		// 	},
+		// },
 	},
 	{
 		freezeTableName: true,
 	}
 );
 
-keranjangMenu.belongsTo(cart_jura, { foreignKey: "id_keranjang" });
-
-user_jura.hasMany(orderDetailsModels);
-orderDetailsModels.belongsTo(user_jura, { foreignKey: "id_user" });
-// cart_jura.belongsTo(list_menu); // A BelongsTo B
-menu_jura.belongsTo(list_menu); // A BelongsTo B
+menuModels.hasMany(list_menu);
+list_menu.belongsTo(menuModels);
 
 export default list_menu;
