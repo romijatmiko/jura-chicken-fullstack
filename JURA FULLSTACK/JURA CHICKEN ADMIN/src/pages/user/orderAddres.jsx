@@ -44,7 +44,7 @@ function Alamat() {
 										/>
 										<label class="form-check-label" for="flexRadioDefault2">
 											{" "}
-											via Bank{" "}
+											via Dana{" "}
 										</label>
 									</div>
 									<div class="form-check mb-2">
@@ -57,7 +57,7 @@ function Alamat() {
 										/>
 										<label class="form-check-label" for="flexRadioDefault2">
 											{" "}
-											via Bank{" "}
+											via Gopay{" "}
 										</label>
 									</div>
 									<div class="form-check mb-2">
@@ -70,7 +70,7 @@ function Alamat() {
 										/>
 										<label class="form-check-label" for="flexRadioDefault2">
 											{" "}
-											via Bank{" "}
+											via OVO{" "}
 										</label>
 									</div>
 								</div>
@@ -131,7 +131,7 @@ function Alamat() {
 									<button
 										type="button"
 										id="btnSubmit"
-										class="btn btn-primray d-block mx-auto btn-submit">
+										class="btn btn-primary d-block mx-auto btn-submit">
 										Order Sekarang
 									</button>
 								</div>
