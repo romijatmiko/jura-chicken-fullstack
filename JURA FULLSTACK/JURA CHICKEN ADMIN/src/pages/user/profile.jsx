@@ -179,10 +179,15 @@ export default function Profile() {
 												STATUS
 											</MDBCardText>
 											<MDBCardText
-												className="mb-1"
+												className="mb-2 mr-4"
 												style={{ fontSize: ".77rem" }}>
-												Web Design
+												<span class="badge badge-danger" id="ggwp">
+													{"Status : "}
+													{"Belum Bayar"}
+												</span>
+												<strong> Order ID :</strong>
 											</MDBCardText>
+
 											<MDBProgress className="rounded">
 												<MDBProgressBar
 													width={80}

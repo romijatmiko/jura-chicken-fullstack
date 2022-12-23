@@ -23,6 +23,7 @@ import Message from "../../components/error";
 import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
 import { useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export default function Keranjang() {
 	const {
@@ -85,23 +86,24 @@ export default function Keranjang() {
 													<p>Color: blue</p>
 													<p>Size: M</p>
 
-													<MDBBtn
+													<Button
 														class="ripple ripple-surface ripple-surface-light btn btn-primary"
 														onClick={() => removeItem(kocak.id)}>
 														<MDBIcon fas icon="trash" />
-													</MDBBtn>
+													</Button>
 												</MDBCol>
 												<MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
 													<div
 														className="d-flex mb-4"
 														style={{ maxWidth: "300px" }}>
-														<MDBBtn
+														<Button
+															href="javascript:window.location.reload()"
 															onClick={() =>
 																updateItemQuantity(kocak.id, kocak.quantity - 1)
 															}
 															className="px-3 me-2">
 															<MDBIcon fas icon="minus" />
-														</MDBBtn>
+														</Button>
 
 														<MDBInput
 															defaultValue={kocak.quantity}
@@ -110,13 +112,14 @@ export default function Keranjang() {
 															label="Quantity"
 														/>
 
-														<MDBBtn
+														<Button
+															href="javascript:window.location.reload()"
 															onClick={() =>
 																updateItemQuantity(kocak.id, kocak.quantity + 1)
 															}
 															className="px-3 ms-2">
 															<MDBIcon fas icon="plus" />
-														</MDBBtn>
+														</Button>
 													</div>
 
 													<p className="text-start text-md-center">

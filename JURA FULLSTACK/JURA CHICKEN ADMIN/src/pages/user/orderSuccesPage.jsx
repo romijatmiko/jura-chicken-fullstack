@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	MDBCard,
 	MDBCardBody,
@@ -9,8 +9,11 @@ import {
 	MDBTypography,
 } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
+import { useCart } from "react-use-cart";
 
 export default function SuccesPage() {
+	const { emptyCart } = useCart();
+	emptyCart();
 	return (
 		<>
 			<section className="vh-100" style={{ backgroundColor: "#fffff" }}>
@@ -25,14 +28,15 @@ export default function SuccesPage() {
 								</div>
 								<h1>Pesanan Anda Telah Dibuat!</h1>
 								<p>
-									Dear Pelanggan yang baik, segera proses pembayaran anda segera
+									Dear Pelanggan yang baik, segera proses pembayaran anda di
+									halaman profile orders
 									<br />
 									Terimakasih.
 								</p>
 								<div class="row mt-3">
 									<div class="col-12" className="ggj">
-										<Button className="ggj" href={"/order/done/"}>
-											<a>Bayar Sekarang</a>
+										<Button className="ggj" href={"/"}>
+											<strong>Pergi ke homepage</strong>
 										</Button>
 									</div>
 								</div>

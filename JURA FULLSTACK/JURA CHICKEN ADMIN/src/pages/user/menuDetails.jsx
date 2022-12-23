@@ -5,11 +5,35 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/loading";
 import { useDispatch, useSelector } from "react-redux";
-import { useThemeHook } from "../../Cart/context";
+import { Button, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
-import { Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+
+function MyVerticallyCenteredModal(props) {
+	return (
+		<Modal
+			{...props}
+			size="sm"
+			aria-labelledby="contained-modal-title-vcenter"
+			centered>
+			<Modal.Header closeButton></Modal.Header>
+			<Modal.Body>
+				<div className="mt-4 text-center">
+					<i class="fa-solid fa-check-to-slot fa-4x"></i>
+					<h3>Berhasil Menambahkan Menu</h3>
+					<p>Terimakasih Silahkan Tambahkan menu lainya!</p>
+				</div>
+			</Modal.Body>
+			<Modal.Footer>
+				<Button onClick={props.onHide}>Close</Button>
+			</Modal.Footer>
+		</Modal>
+	);
+}
 
 export const Details = () => {
+	const [modalShow, setModalShow] = React.useState(false);
 	const [nama_menu, setNama_menu] = useState("");
 	const [harga_menu, setHarga_menu] = useState("");
 	const [deskripsi, setDeskripsi] = useState("");
@@ -54,10 +78,15 @@ export const Details = () => {
 	];
 	const { items, addId, addItem, emptyCart } = useCart();
 
+	const [show, setShow] = useState(false);
+
 	return (
 		<div>
+			<MyVerticallyCenteredModal
+				show={modalShow}
+				onHide={() => setModalShow(false)}
+			/>
 			<NavbarJura />
-
 			<section class="mt-5 mb-5 mr-5 ml-5">
 				{isLoading ? (
 					<div className="mb-5">
@@ -99,7 +128,10 @@ export const Details = () => {
 														<div key={p.id}>
 															<Button
 																class="btn btn-primary"
-																onClick={() => addItem(p)}>
+																onClick={() => {
+																	addItem(p);
+																	setModalShow(true);
+																}}>
 																Add to cart
 															</Button>
 														</div>

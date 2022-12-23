@@ -16,29 +16,29 @@ const orderDetailsModels = db.define(
 				notEmpty: true,
 			},
 		},
-		// cart_id: {
-		// 	type: DataTypes.STRING,
-		// 	references: {
-		// 		model: keranjangMenu, // 'Movies' would also work
-		// 		key: "uuid",
-		// 	},
-		// },
-		// user_id: {
-		// 	type: DataTypes.STRING,
-		// 	references: {
-		// 		model: userModels, // 'Movies' would also work
-		// 		key: "uuid",
-		// 	},
-		// },
-		details: {
-			type: Sequelize.ARRAY(Sequelize.STRING),
+		total_price: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
 			},
 		},
-		alamatKirim: {
-			type: DataTypes.ARRAY(DataTypes.STRING),
+		jumlah_items: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			validate: {
+				notEmpty: true,
+			},
+		},
+		total_unique_items: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			validate: {
+				notEmpty: true,
+			},
+		},
+		details: {
+			type: Sequelize.ARRAY(Sequelize.STRING),
 			allowNull: false,
 			validate: {
 				notEmpty: true,

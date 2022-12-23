@@ -15,11 +15,13 @@ import order_details from "../models/orderDetailsModels.js";
 export const getOrders = async (req, res) => {
 	try {
 		let response;
-		const useratt = ["uuid", "nama_user"];
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
 		const attributes = [
+			"total_price",
+			"jumlah_items",
+			"total_unique_items",
 			"uuid",
 			"details",
-			"alamatKirim",
 			"payment_type",
 			"sudahBayar",
 			"dibayarTanggal",
@@ -28,7 +30,6 @@ export const getOrders = async (req, res) => {
 			"response_midtrans",
 		];
 		response = await order_details.findAll({
-			where: { userJuraUuid: req.params.id },
 			attributes: attributes,
 			include: [{ model: user_jura, attributes: useratt }],
 		});
@@ -41,20 +42,25 @@ export const getOrders = async (req, res) => {
 export const createOrders = async (req, res) => {
 	const {
 		uuid,
+		total_price,
+		jumlah_items,
+		total_unique_items,
 		details,
-		alamatKirim,
 		payment_type,
 		sudahBayar,
 		dibayarTanggal,
 		sudahDikirim,
 		dikirimTanggal,
 		response_midtrans,
+		userJuraUuid,
 	} = req.body;
 	try {
 		await order_details.create({
 			uuid: uuid,
+			total_price: total_price,
+			jumlah_items: jumlah_items,
+			total_unique_items: total_unique_items,
 			details: details,
-			alamatKirim: alamatKirim,
 			payment_type: payment_type,
 			sudahBayar: sudahBayar,
 			dibayarTanggal: dibayarTanggal,
@@ -63,7 +69,7 @@ export const createOrders = async (req, res) => {
 			response_midtrans: response_midtrans,
 			userJuraUuid: userJuraUuid,
 		});
-		res.status(201).json({ msg: "aikfjwai Created Successfuly" });
+		res.status(201).json({ msg: "order Created Successfuly" });
 	} catch (error) {
 		res.status(500).json({ msg: error.message });
 	}

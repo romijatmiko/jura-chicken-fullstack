@@ -24,6 +24,7 @@ import Alamat from "./pages/user/orderAddres";
 import { FooterJura } from "./components/user/FooterJura";
 import OrderStatus from "./pages/user/orderStatus";
 import SuccesPage from "./pages/user/orderSuccesPage";
+import Wow from "./components/user/createOrderLoading";
 
 function App() {
 	const { isSuccess } = useSelector((state) => state.auth);
@@ -173,6 +174,16 @@ function App() {
 						<UserRoute>
 							<CartProvider>
 								<SuccesPage />
+							</CartProvider>
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/loading/:id"
+					element={
+						<UserRoute>
+							<CartProvider>
+								<Wow />
 							</CartProvider>
 						</UserRoute>
 					}
