@@ -52,7 +52,7 @@ export const Details = () => {
 			quantity: 1,
 		},
 	];
-	const { items, addItem, emptyCart } = useCart();
+	const { items, addId, addItem, emptyCart } = useCart();
 
 	return (
 		<div>
@@ -90,14 +90,16 @@ export const Details = () => {
 											</div>
 											<br></br>
 											<div class="mb-3">
-												<a class="price h4">Rp. {harga_menu}</a> <br />
+												<strong class="hz">Rp. {harga_menu}</strong> <br />
 											</div>
 
 											<div class="mb-4">
 												<div>
 													{hehehe.map((p) => (
 														<div key={p.id}>
-															<Button onClick={() => addItem(p)}>
+															<Button
+																class="btn btn-primary"
+																onClick={() => addItem(p)}>
 																Add to cart
 															</Button>
 														</div>

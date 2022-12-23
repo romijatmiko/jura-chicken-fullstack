@@ -86,7 +86,7 @@ const HomeJura = () => {
 													<Card.Text>Rp. {menu_jura.harga_menu}</Card.Text>
 													<a
 														href={"/menu/" + menu_jura.uuid}
-														class="btn btn-dark">
+														class="btn btn-primary">
 														See Details
 													</a>
 												</Card.Body>

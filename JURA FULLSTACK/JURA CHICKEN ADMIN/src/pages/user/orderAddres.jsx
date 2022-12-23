@@ -5,6 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
 
 function Alamat() {
+	const { clearCartMetadata } = useCart();
+
+	const { isError, isLoading, user } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
+	const { emptyCart } = useCart();
+
+	// emptyCart();
 	return (
 		<>
 			<section class="order-form my-4 mx-4">
@@ -129,6 +136,7 @@ function Alamat() {
 							<div class="row mt-3">
 								<div class="col-12">
 									<button
+										// onClick={() => clearCartMetadata()}
 										type="button"
 										id="btnSubmit"
 										class="btn btn-primary d-block mx-auto btn-submit">

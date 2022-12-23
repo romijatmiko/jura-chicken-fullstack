@@ -21,6 +21,8 @@ import { NavbarJura } from "./components/user/navbarj";
 import { useDispatch, useSelector } from "react-redux";
 import { CartProvider } from "react-use-cart";
 import Alamat from "./pages/user/orderAddres";
+import { FooterJura } from "./components/user/FooterJura";
+import OrderStatus from "./pages/user/orderStatus";
 
 function App() {
 	const { isSuccess } = useSelector((state) => state.auth);
@@ -149,6 +151,18 @@ function App() {
 							<CartProvider>
 								<Alamat />
 							</CartProvider>
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/status"
+					element={
+						<UserRoute>
+							<CartProvider>
+								<NavbarJura />
+								<OrderStatus />
+							</CartProvider>
+							<FooterJura />
 						</UserRoute>
 					}
 				/>

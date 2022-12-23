@@ -7,11 +7,8 @@ import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/userRoute.js";
 import ProductRoute from "./routes/menuRoute.js";
 import AuthRoute from "./routes/authRoute.js";
-import cart_jura from "./models/keranjangModels.js";
 import orderDetailsModels from "./models/orderDetailsModels.js";
-import keranjangRoute from "./routes/keranjangRoute.js";
 import orderDetailsRoute from "./routes/orderDetailsRoute.js";
-import menuKeranjangRoute from "./routes/menuKeranjangRoute.js";
 
 dotenv.config();
 
@@ -47,8 +44,6 @@ app.use(
 );
 app.use(express.json());
 
-app.use(menuKeranjangRoute);
-app.use(keranjangRoute);
 app.use(orderDetailsRoute);
 app.use(UserRoute);
 app.use(ProductRoute);

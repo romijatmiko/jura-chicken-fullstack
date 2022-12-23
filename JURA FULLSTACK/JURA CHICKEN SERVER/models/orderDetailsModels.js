@@ -1,6 +1,5 @@
 import { Sequelize } from "sequelize";
 import db from "../db/dbConfig.js";
-import keranjangModels from "./keranjangModels.js";
 import userModels from "./userModels.js";
 
 const { DataTypes } = Sequelize;
@@ -39,13 +38,13 @@ const orderDetailsModels = db.define(
 			},
 		},
 		alamatKirim: {
-			type: DataTypes.STRING,
+			type: DataTypes.ARRAY(DataTypes.STRING),
 			allowNull: false,
 			validate: {
 				notEmpty: true,
 			},
 		},
-		paymentMethod: {
+		payment_type: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
@@ -67,14 +66,15 @@ const orderDetailsModels = db.define(
 		dikirimTanggal: {
 			type: DataTypes.DATE,
 		},
+		response_midtrans: {
+			type: Sequelize.TEXT,
+			allowNull: true,
+		},
 	},
 	{
 		freezeTableName: true,
 	}
 );
-
-keranjangModels.hasOne(orderDetailsModels);
-orderDetailsModels.belongsTo(keranjangModels);
 
 userModels.hasMany(orderDetailsModels);
 orderDetailsModels.belongsTo(userModels);
