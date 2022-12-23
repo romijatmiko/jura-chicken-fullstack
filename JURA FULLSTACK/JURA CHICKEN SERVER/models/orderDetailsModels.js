@@ -31,8 +31,15 @@ const orderDetailsModels = db.define(
 		// 		key: "uuid",
 		// 	},
 		// },
-		total_price: {
-			type: DataTypes.INTEGER,
+		details: {
+			type: Sequelize.ARRAY(Sequelize.STRING),
+			allowNull: false,
+			validate: {
+				notEmpty: true,
+			},
+		},
+		alamatKirim: {
+			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				notEmpty: true,
@@ -45,6 +52,7 @@ const orderDetailsModels = db.define(
 				notEmpty: true,
 			},
 		},
+
 		sudahBayar: {
 			type: Sequelize.BOOLEAN,
 			defaultValue: false,
@@ -66,11 +74,9 @@ const orderDetailsModels = db.define(
 );
 
 keranjangModels.hasOne(orderDetailsModels);
-// keranjangMenu.belongsTo(orderDetailsModels, { foreignKey: "cart_id" });
 orderDetailsModels.belongsTo(keranjangModels);
 
 userModels.hasMany(orderDetailsModels);
 orderDetailsModels.belongsTo(userModels);
-// orderDetailsModels.belongsTo(userModels, { foreignKey: "id_user" });
 
 export default orderDetailsModels;
