@@ -2,15 +2,14 @@ import { Op } from "sequelize";
 import user_jura from "../models/userModels.js";
 import menu_jura from "../models/menuModels.js";
 import order_details from "../models/orderDetailsModels.js";
+import midtransClient from "midtrans-client";
 
-// const midtransClient = require("midtrans-client");
-// const { route } = require(".");
-// // Create Core API instance
-// let coreApi = new midtransClient.CoreApi({
-// 	isProduction: false,
-// 	serverKey: "ISI_SERVER_KEY",
-// 	clientKey: "ISI_CLIENT_KEY",
-// });
+// Create Core API instance
+let coreApi = new midtransClient.CoreApi({
+	isProduction: false,
+	serverKey: "YOUR_SERVER_KEY",
+	clientKey: "YOUR_CLIENT_KEY",
+});
 
 export const getOrders = async (req, res) => {
 	try {
