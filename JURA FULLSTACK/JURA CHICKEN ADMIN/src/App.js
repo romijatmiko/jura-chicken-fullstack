@@ -23,6 +23,7 @@ import { CartProvider } from "react-use-cart";
 import Alamat from "./pages/user/orderAddres";
 import { FooterJura } from "./components/user/FooterJura";
 import OrderStatus from "./pages/user/orderStatus";
+import SuccesPage from "./pages/user/orderSuccesPage";
 
 function App() {
 	const { isSuccess } = useSelector((state) => state.auth);
@@ -145,7 +146,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="/order/details"
+					path="/order/details/:id"
 					element={
 						<UserRoute>
 							<CartProvider>
@@ -163,6 +164,16 @@ function App() {
 								<OrderStatus />
 							</CartProvider>
 							<FooterJura />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/done/:id"
+					element={
+						<UserRoute>
+							<CartProvider>
+								<SuccesPage />
+							</CartProvider>
 						</UserRoute>
 					}
 				/>

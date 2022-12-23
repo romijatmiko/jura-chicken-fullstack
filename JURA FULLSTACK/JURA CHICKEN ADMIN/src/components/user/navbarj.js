@@ -13,12 +13,10 @@ import { useCart } from "react-use-cart";
 
 export function NavbarJura() {
 	const { totalItems } = useCart();
-	const [id, setId] = useState("");
 	const { user, isSuccess } = useSelector((state) => state.auth);
 	const { navbarLogin } = { isSuccess, user };
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const location = useLocation();
 	const logout = () => {
 		dispatch(LogOut());
 		dispatch(reset());
@@ -59,9 +57,6 @@ export function NavbarJura() {
 							<NavDropdown title={icons} id="collasible-nav-dropdown">
 								<NavDropdown.Item href={"/profile/" + user.uuid}>
 									My Profile
-								</NavDropdown.Item>
-								<NavDropdown.Item href={"/profile" + id}>
-									E-Jura
 								</NavDropdown.Item>
 								<NavDropdown.Item onClick={logout} class="btn btn-danger">
 									Logout

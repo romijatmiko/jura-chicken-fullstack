@@ -18,12 +18,14 @@ export const getOrders = async (req, res) => {
 		const useratt = ["uuid", "nama_user"];
 		const attributes = [
 			"uuid",
-			"total_price",
-			"paymentMethod",
+			"details",
+			"alamatKirim",
+			"payment_type",
 			"sudahBayar",
 			"dibayarTanggal",
 			"sudahDikirim",
 			"dikirimTanggal",
+			"response_midtrans",
 		];
 		response = await order_details.findAll({
 			where: { userJuraUuid: req.params.id },
@@ -39,23 +41,26 @@ export const getOrders = async (req, res) => {
 export const createOrders = async (req, res) => {
 	const {
 		uuid,
-		paymentMethod,
-		total_price,
+		details,
+		alamatKirim,
+		payment_type,
 		sudahBayar,
+		dibayarTanggal,
 		sudahDikirim,
-		id_keranjang,
-		cartJuraUuid,
-		userJuraUuid,
+		dikirimTanggal,
+		response_midtrans,
 	} = req.body;
 	try {
 		await order_details.create({
 			uuid: uuid,
-			paymentMethod: paymentMethod,
-			total_price: total_price,
+			details: details,
+			alamatKirim: alamatKirim,
+			payment_type: payment_type,
 			sudahBayar: sudahBayar,
+			dibayarTanggal: dibayarTanggal,
 			sudahDikirim: sudahDikirim,
-			id_keranjang: id_keranjang,
-			cartJuraUuid: cartJuraUuid,
+			dikirimTanggal: dikirimTanggal,
+			response_midtrans: response_midtrans,
 			userJuraUuid: userJuraUuid,
 		});
 		res.status(201).json({ msg: "aikfjwai Created Successfuly" });
@@ -71,19 +76,20 @@ export const updateOrders = async (req, res) => {
 		},
 	});
 	if (!update) return res.status(404).json({ msg: "Menu tidak ditemukan" });
-	const { uuid, qty, id_menu, total_price } = req.body;
+	const { uuid, sudahBayar, dibayarTanggal, sudahDikirim, dikirimTanggal } =
+		req.body;
 	try {
 		await menu_jura.update(
 			{
 				uuid: uuid,
-				qty: qty,
-				id_menu: id_menu,
-				total_price: total_price,
-				JuraUuid: req.params.id,
+				sudahBayar: sudahBayar,
+				dibayarTanggal: dibayarTanggal,
+				sudahDikirim: sudahDikirim,
+				dikirimTanggal: dikirimTanggal,
 			},
 			{
 				where: {
-					id: update.id,
+					JuraUuid: req.params.id,
 				},
 			}
 		);
@@ -96,14 +102,14 @@ export const updateOrders = async (req, res) => {
 export const deleteOrders = async (req, res) => {
 	const del = await order_details.findOne({
 		where: {
-			JuraUuid: req.params.id,
+			uuid: req.params.id,
 		},
 	});
 	if (!del) return res.status(404).json({ msg: "Menu tidak ditemukan" });
 	try {
-		await menu_jura.destroy({
+		await order_details.destroy({
 			where: {
-				id: del.id,
+				uuid: del.id,
 			},
 		});
 		res.status(200).json({ msg: "Menu Deleted" });

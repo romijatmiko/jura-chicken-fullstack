@@ -22,6 +22,7 @@ import Loading from "../../components/loading";
 import Message from "../../components/error";
 import { useDispatch, useSelector } from "react-redux";
 import { useCart } from "react-use-cart";
+import { useParams } from "react-router-dom";
 
 export default function Keranjang() {
 	const {
@@ -38,8 +39,9 @@ export default function Keranjang() {
 	useEffect(() => {
 		setKocak(items);
 	}, []);
-	const { isError, isLoading, user } = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
+	const { isSuccess, isLoading, user } = useSelector((state) => state.auth);
+	const { id } = useParams();
+
 	return (
 		<section className="h-100 gradient-custom">
 			<NavbarJura />
@@ -48,8 +50,6 @@ export default function Keranjang() {
 					<div className="mb-5">
 						<Loading />
 					</div>
-				) : isError ? (
-					<Message variant="alert-danger">{isError}</Message>
 				) : (
 					<MDBRow className="justify-content-center my-4">
 						<MDBCol md="8">
@@ -202,7 +202,7 @@ export default function Keranjang() {
 										</MDBListGroupItem>
 									</MDBListGroup>
 
-									<MDBBtn href={"/order/details"} block size="lg">
+									<MDBBtn href={"/order/details/" + id} block size="lg">
 										Go to checkout
 									</MDBBtn>
 								</MDBCardBody>
