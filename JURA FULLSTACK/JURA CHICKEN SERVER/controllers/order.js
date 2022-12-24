@@ -7,8 +7,8 @@ import midtransClient from "midtrans-client";
 // Create Core API instance
 let coreApi = new midtransClient.CoreApi({
 	isProduction: false,
-	serverKey: "YOUR_SERVER_KEY",
-	clientKey: "YOUR_CLIENT_KEY",
+	serverKey: "SB-Mid-server-a6m3-7jxol7GsVxLcgz4ezNn",
+	clientKey: "SB-Mid-client-LgDkBfzfI2Mg-78I",
 });
 
 export const getOrders = async (req, res) => {
@@ -16,10 +16,37 @@ export const getOrders = async (req, res) => {
 		let response;
 		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
 		const attributes = [
+			"uuid",
 			"total_price",
 			"jumlah_items",
 			"total_unique_items",
+			"payment_type",
+			"details",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"dikirimTanggal",
+		];
+		response = await order_details.findAll({
+			attributes: attributes,
+			include: [{ model: user_jura, attributes: useratt }],
+		});
+		// response = response.concat(tampilData);
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
+};
+
+export const getOrderId = async (req, res) => {
+	try {
+		let response;
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
+		const attributes = [
 			"uuid",
+			"total_price",
+			"jumlah_items",
+			"total_unique_items",
 			"details",
 			"payment_type",
 			"sudahBayar",
@@ -29,8 +56,44 @@ export const getOrders = async (req, res) => {
 			"response_midtrans",
 		];
 		response = await order_details.findAll({
+			where: {
+				uuid: req.params.id,
+			},
 			attributes: attributes,
 			include: [{ model: user_jura, attributes: useratt }],
+			raw: true, // <----------- Magic is here
+		});
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
+};
+
+export const getAllOrderId = async (req, res) => {
+	try {
+		let response;
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
+		const attributes = [
+			"uuid",
+			"total_price",
+			"jumlah_items",
+			"total_unique_items",
+
+			"details",
+			"payment_type",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"dikirimTanggal",
+			"response_midtrans",
+		];
+		response = await order_details.findAll({
+			where: {
+				userJuraUuid: req.params.id,
+			},
+			attributes: attributes,
+			include: [{ model: user_jura, attributes: useratt }],
+			raw: true, // <----------- Magic is here
 		});
 		res.status(200).json(response);
 	} catch (error) {

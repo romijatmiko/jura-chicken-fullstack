@@ -6,7 +6,7 @@ import { useCart } from "react-use-cart";
 import { Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import {
 	MDBCard,
@@ -19,8 +19,7 @@ import {
 } from "mdb-react-ui-kit";
 
 function Alamat() {
-	const { clearCartMetadata } = useCart();
-	const { isSucces, isLoading, user } = useSelector((state) => state.auth);
+	const { isSucces, isLoading } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const { id } = useParams();
 
@@ -63,14 +62,22 @@ function Alamat() {
 				payment_type: payment_type,
 				userJuraUuid: userJuraUuid,
 			});
+			navigate("/order/loading/" + id);
 		} catch (error) {
 			if (error.response) {
 				setMsg(error.response.data.msg);
 			}
 		}
 	};
-	console.log(total_price);
-	console.log(msg);
+
+	// const loadings = () => {
+	// 	// 👇️ navigate to /contacts
+	// };
+	// const wow = () => {
+	// 	// perform some task here
+	// 	navigate("/order/loading/" + id);
+	// 	createOrder();
+	// };
 
 	return (
 		<>
@@ -88,7 +95,7 @@ function Alamat() {
 						<MDBContainer className="py-5 h-100">
 							<div class="success-container-v">
 								<div class="row">
-									<Form onSubmit={createOrder}>
+									<Form id=" gg" onSubmit={createOrder} method="post">
 										<section class="order-form my-4 mx-4">
 											<div class="container pt-4">
 												<div class="row">
@@ -224,10 +231,11 @@ function Alamat() {
 														<div class="row mt-3">
 															<div class="col-12" className="ggj">
 																<Button
+																	onSubmit={createOrder}
 																	type="submit"
-																	className="ggj"
-																	href={"/order/loading/" + id}>
-																	<a>Order Sekarang</a>
+																	className="ggj
+																	">
+																	Order Sekarang
 																</Button>
 															</div>
 														</div>
