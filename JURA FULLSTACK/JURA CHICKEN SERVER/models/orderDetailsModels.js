@@ -53,17 +53,24 @@ const orderDetailsModels = db.define(
 		},
 
 		sudahBayar: {
-			type: Sequelize.BOOLEAN,
-			defaultValue: false,
+			type: Sequelize.STRING,
+			defaultValue: "false",
 		},
 		dibayarTanggal: {
 			type: DataTypes.DATE,
 		},
 		sudahDikirim: {
-			type: Sequelize.BOOLEAN,
-			defaultValue: false,
+			type: Sequelize.STRING,
+			defaultValue: "false",
 		},
 		dikirimTanggal: {
+			type: DataTypes.DATE,
+		},
+		sudahSampai: {
+			type: Sequelize.STRING,
+			defaultValue: "false",
+		},
+		sampaiTanggal: {
 			type: DataTypes.DATE,
 		},
 		response_midtrans: {

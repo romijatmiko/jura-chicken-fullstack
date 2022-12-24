@@ -11,121 +11,114 @@ let coreApi = new midtransClient.CoreApi({
 	clientKey: "SB-Mid-client-LgDkBfzfI2Mg-78I",
 });
 
-export const getOrders = async (req, res) => {
-	order_details
-		.findAll()
-		.then((order_details) => {
-			const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
-			var order_details = order_details.map((item) => {
-				return {
-					uuid: item.uuid,
-					total_price: item.total_price,
-					jumlah_items: item.jumlah_items,
-					total_unique_items: item.total_unique_items,
-					details: JSON.parse(item.details),
-					payment_type: item.payment_type,
-					sudahBayar: item.sudahBayar,
-					dibayarTanggal: item.dibayarTanggal,
-					sudahDikirim: item.sudahDikirim,
-					dikirimTanggal: item.dikirimTanggal,
-					sudahSampai: item.sudahSampai,
-					sampaiTanggal: item.sampaiTanggal,
-					userJuraUuid: item.userJuraUuid,
-					createdAt: item.createdAt,
-					updatedAt: item.updatedAt,
-					response_midtrans: JSON.parse(item.response_midtrans),
-				};
-			});
-			res.json({
-				order_details: order_details,
-			});
-		})
-		.catch((err) => {
-			res.json({
-				status: false,
-				data: [],
-			});
+export const sumOrders = async (req, res) => {
+	try {
+		let response;
+		response = await order_details.sum("total_price");
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
+};
+export const countOrders = async (req, res) => {
+	try {
+		let response;
+		response = await order_details.count({
+			col: "uuid",
 		});
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
+};
+
+export const getOrders = async (req, res) => {
+	try {
+		let response;
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
+		const attributes = [
+			"uuid",
+			"total_price",
+			"jumlah_items",
+			"details",
+			"total_unique_items",
+			"payment_type",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"dikirimTanggal",
+		];
+		response = await order_details.findAll({
+			attributes: attributes,
+			include: [{ model: user_jura, attributes: useratt }],
+			raw: true, // <----------- Magic is here
+			nest: true, // <----------- Magic is here
+		});
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
 };
 
 export const getOrderId = async (req, res) => {
-	order_details
-		.findAll({
+	try {
+		let response;
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
+		const attributes = [
+			"uuid",
+			"total_price",
+			"jumlah_items",
+			"details",
+			"total_unique_items",
+			"payment_type",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"dikirimTanggal",
+		];
+		response = await order_details.findAll({
 			where: {
 				uuid: req.params.id,
 			},
-		})
-		.then((order_details) => {
-			var order_details = order_details.map((item) => {
-				return {
-					uuid: item.uuid,
-					total_price: item.total_price,
-					jumlah_items: item.jumlah_items,
-					total_unique_items: item.total_unique_items,
-					details: JSON.parse(item.details),
-					payment_type: item.payment_type,
-					sudahBayar: item.sudahBayar,
-					dibayarTanggal: item.dibayarTanggal,
-					sudahDikirim: item.sudahDikirim,
-					dikirimTanggal: item.dikirimTanggal,
-					sudahSampai: item.sudahSampai,
-					sampaiTanggal: item.sampaiTanggal,
-					userJuraUuid: item.userJuraUuid,
-					createdAt: item.createdAt,
-					updatedAt: item.updatedAt,
-					response_midtrans: JSON.parse(item.response_midtrans),
-				};
-			});
-			res.json({
-				order_details: order_details,
-			});
-		})
-		.catch((err) => {
-			res.json({
-				status: false,
-				data: [],
-			});
+			attributes: attributes,
+			include: [{ model: user_jura, attributes: useratt }],
 		});
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
 };
 
 export const getAllOrderId = async (req, res) => {
-	order_details
-		.findAll({
+	try {
+		let response;
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
+		const attributes = [
+			"uuid",
+			"total_price",
+			"jumlah_items",
+			"total_unique_items",
+			"details",
+			"payment_type",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"dikirimTanggal",
+			"response_midtrans",
+		];
+		response = await order_details.findAll({
 			where: {
 				userJuraUuid: req.params.id,
 			},
-		})
-		.then((order_details) => {
-			var order_details = order_details.map((item) => {
-				return {
-					uuid: item.uuid,
-					total_price: item.total_price,
-					jumlah_items: item.jumlah_items,
-					total_unique_items: item.total_unique_items,
-					details: JSON.parse("{item.details}"),
-					payment_type: item.payment_type,
-					sudahBayar: item.sudahBayar,
-					dibayarTanggal: item.dibayarTanggal,
-					sudahDikirim: item.sudahDikirim,
-					dikirimTanggal: item.dikirimTanggal,
-					sudahSampai: item.sudahSampai,
-					sampaiTanggal: item.sampaiTanggal,
-					userJuraUuid: item.userJuraUuid,
-					createdAt: item.createdAt,
-					updatedAt: item.updatedAt,
-					response_midtrans: JSON.parse(item.response_midtrans),
-				};
-			});
-			res.json({
-				order_details: order_details,
-			});
-		})
-		.catch((err) => {
-			res.json({
-				status: false,
-				data: [],
-			});
+			attributes: attributes,
+			include: [{ model: user_jura, attributes: useratt }],
+			raw: true, // <----------- Magic is here
+			nest: true, // <----------- Magic is here
 		});
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
 };
 
 export const createOrders = async (req, res) => {

@@ -1,8 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import HeaderJura from "../../components/admin/HeaderJura";
 import Card from "react-bootstrap/Card";
 
 const HomeScreen = () => {
+	const [orders, setOrders] = useState([]);
+	useEffect(() => {
+		getOrders();
+	}, []);
+	const getOrders = async () => {
+		const response = await axios.get("http://localhost:3100/order/count/all");
+		setOrders(response.data);
+	};
+
+	const [sum, setSum] = useState([]);
+	useEffect(() => {
+		sumOrders();
+	}, []);
+	const sumOrders = async () => {
+		const response = await axios.get("http://localhost:3100/order/sum/all");
+		setSum(response.data);
+	};
+
+	const [z, setZ] = useState([]);
+	useEffect(() => {
+		countUsers();
+	}, []);
+	const countUsers = async () => {
+		const response = await axios.get("http://localhost:3100/users/count");
+		setZ(response.data);
+	};
 	return (
 		<>
 			<main className="main-wrap">
@@ -14,25 +41,25 @@ const HomeScreen = () => {
 								<strong>Total Sales</strong>
 							</Card.Title>
 							<br></br>
-							<Card.Text className="he">110</Card.Text>
+							<Card.Text className="he">{orders}</Card.Text>
 						</Card.Body>
 					</Card>
 					<Card className="homeCards">
 						<Card.Body>
 							<Card.Title>
-								<strong>Total Sales</strong>
+								<strong>Total Pendapatan</strong>
 							</Card.Title>
 							<br></br>
-							<Card.Text className="he">110</Card.Text>
+							<Card.Text className="he">Rp. {sum}</Card.Text>
 						</Card.Body>
 					</Card>
 					<Card className="homeCards">
 						<Card.Body>
 							<Card.Title>
-								<strong>Total Sales</strong>
+								<strong>Total Users</strong>
 							</Card.Title>
 							<br></br>
-							<Card.Text className="he">110</Card.Text>
+							<Card.Text className="he">{z}</Card.Text>
 						</Card.Body>
 					</Card>
 				</div>

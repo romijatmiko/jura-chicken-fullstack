@@ -157,7 +157,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="/order/status"
+					path="/order/status/:id"
 					element={
 						<UserRoute>
 							<CartProvider>

@@ -10,11 +10,13 @@ import {
 	createAdmin,
 	updateAdmin,
 	deleteAdmin,
+	countUser,
 } from "../controllers/user.js";
 import { verifyUser, adminOnly } from "../middleware/authUser.js";
 
 const router = express.Router();
 
+router.get("/users/count", countUser);
 router.get("/users/get", verifyUser, getUsers);
 router.get("/users/get/:id", verifyUser, getUserById);
 router.post("/users/add", createUser);

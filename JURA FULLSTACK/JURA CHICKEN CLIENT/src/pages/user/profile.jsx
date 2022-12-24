@@ -19,6 +19,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
 	const [nama_user, setNama] = useState("");
@@ -50,6 +51,19 @@ export default function Profile() {
 		};
 		user();
 	}, [id]);
+
+	const [order, setOrder] = useState([]);
+
+	useEffect(() => {
+		getAllOrdersId();
+	}, []);
+	const getAllOrdersId = async () => {
+		const q = await axios.get("http://localhost:3100/order/get/all/" + id);
+		setOrder(q.data);
+	};
+	console.log(order);
+
+	const { isError, isLoading } = useSelector((state) => state.auth);
 	return (
 		<section style={{ backgroundColor: "#FFFFFF" }}>
 			<NavbarJura />
@@ -179,23 +193,44 @@ export default function Profile() {
 												</span>{" "}
 												STATUS
 											</MDBCardText>
-											<MDBCardText
-												className="mb-2 mr-4"
-												style={{ fontSize: ".77rem" }}>
-												<span class="badge badge-danger" id="ggwp">
-													{"Status : "}
-													{"Belum Bayar"}
-												</span>
-												<strong> Order ID :</strong>
-											</MDBCardText>
+											{order.map((kocak, index) => (
+												<>
+													<MDBCardText
+														className="mt-4 mb-2 mr-4"
+														style={{ fontSize: ".77rem" }}>
+														<span class="badge badge-dark mb-1" id="ggwp">
+															{"Your Order Information"}
+															{}
+														</span>
+														<div class="ggzm">
+															<MDBCol>
+																<MDBCardText>
+																	Order ID : {kocak.uuid}
+																</MDBCardText>
+															</MDBCol>
 
-											<Button
-												size="sm"
-												type="submit"
-												className="ggm"
-												href={"/order/loading/" + id}>
-												<a>See Details</a>
-											</Button>
+															<MDBCol>
+																<MDBCardText>
+																	Total_harga : {kocak.total_price}
+																</MDBCardText>
+															</MDBCol>
+															<MDBCol>
+																<MDBCardText>
+																	Jumlah Makanan : {kocak.jumlah_items}
+																</MDBCardText>
+															</MDBCol>
+														</div>
+													</MDBCardText>
+
+													<Button
+														size="sm"
+														type="submit"
+														className="ggm"
+														href={"/order/status/" + kocak.uuid}>
+														<a>See Details</a>
+													</Button>
+												</>
+											))}
 										</MDBCardBody>
 									</div>
 								</MDBCard>

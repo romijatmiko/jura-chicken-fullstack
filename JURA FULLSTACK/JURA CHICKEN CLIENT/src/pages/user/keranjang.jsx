@@ -69,7 +69,7 @@ export default function Keranjang() {
 														rippleTag="div"
 														rippleColor="light"
 														className="bg-image rounded hover-zoom hover-overlay">
-														<img src={"/img/" + kocak.img} className="w-100" />
+														<img src={"/img/" + kocak.img} className="ado" />
 														<a href="#!">
 															<div
 																className="mask"

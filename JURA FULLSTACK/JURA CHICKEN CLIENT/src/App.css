@@ -1,6 +1,22 @@
+.popl{
+    text-align: center;
+}
+.ado{
+    border: 1px solid rgb(255, 255, 255);
+      border-radius: 4px;
+      padding: 5px;
+      width: 150px;
+      
+}
 .ggs {
   justify-content: center;
   align-item: center
+}
+.ggzm{
+    display: flexbox;
+    justify-content: right;
+    align-item: right;
+flex-direction: row
 }
 .ggm {
   size: 1rem;

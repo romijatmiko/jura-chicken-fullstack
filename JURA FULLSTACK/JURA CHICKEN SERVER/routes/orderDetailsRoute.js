@@ -6,12 +6,16 @@ import {
 	createOrders,
 	updateOrders,
 	deleteOrders,
+	countOrders,
+	sumOrders,
 } from "../controllers/order.js";
 import { verifyUser, adminOnly } from "../middleware/authUser.js";
 
 const router = express.Router();
 
 router.get("/order/get", getOrders);
+router.get("/order/sum/all", sumOrders);
+router.get("/order/count/all", countOrders);
 router.get("/order/get/:id", getOrderId);
 router.get("/order/get/all/:id", getAllOrderId);
 router.post("/order/add", verifyUser, createOrders);
