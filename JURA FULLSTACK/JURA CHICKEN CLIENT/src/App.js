@@ -25,6 +25,7 @@ import { FooterJura } from "./components/user/FooterJura";
 import OrderStatus from "./pages/user/orderStatus";
 import SuccesPage from "./pages/user/orderSuccesPage";
 import Wow from "./components/user/createOrderLoading";
+import OrderUpdate from "./components/admin/OrderUpdate";
 
 function App() {
 	const { isSuccess } = useSelector((state) => state.auth);
@@ -84,6 +85,14 @@ function App() {
 					element={
 						<PrivateRouter>
 							<Orders />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/order/update/:id"
+					element={
+						<PrivateRouter>
+							<OrderUpdate />
 						</PrivateRouter>
 					}
 				/>

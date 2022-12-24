@@ -36,7 +36,8 @@ const HeaderJura = () => {
 							<Nav.Link href="/admin/homepage">Homepage</Nav.Link>
 							<Nav.Link href="/admin/menus">Menus</Nav.Link>
 							<Nav.Link href="/admin/users">Users</Nav.Link>
-							<Nav.Link href="/admin/orders">Orders</Nav.Link>
+							<Nav.Link href="/admin/orders">Orderan Tertunda</Nav.Link>
+							<Nav.Link href="/admin/orders">Orders Details</Nav.Link>
 						</Nav>
 						<Nav>
 							<button onClick={logout} class="btn btn-danger">

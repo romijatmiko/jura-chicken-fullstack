@@ -57,21 +57,21 @@ const orderDetailsModels = db.define(
 			defaultValue: "false",
 		},
 		dibayarTanggal: {
-			type: DataTypes.DATE,
+			type: "TIMESTAMP",
 		},
 		sudahDikirim: {
 			type: Sequelize.STRING,
 			defaultValue: "false",
 		},
 		dikirimTanggal: {
-			type: DataTypes.DATE,
+			type: "TIMESTAMP",
 		},
 		sudahSampai: {
 			type: Sequelize.STRING,
 			defaultValue: "false",
 		},
 		sampaiTanggal: {
-			type: DataTypes.DATE,
+			type: "TIMESTAMP",
 		},
 		response_midtrans: {
 			type: Sequelize.TEXT,

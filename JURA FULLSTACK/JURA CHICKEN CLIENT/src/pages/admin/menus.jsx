@@ -78,7 +78,7 @@ const Menu = () => {
 										<td>{menu_jura.updatedAt}</td>
 										<td>
 											<Link
-												to={`/menu/update/${menu_jura.uuid}`}
+												to={`/admin/menu/update/${menu_jura.uuid}`}
 												class="btn btn-primary">
 												Edit
 											</Link>

@@ -80,7 +80,7 @@ export const updateMenu = async (req, res) => {
 			},
 			{
 				where: {
-					id: update.id,
+					uuid: req.params.id,
 				},
 			}
 		);

@@ -1,105 +1,83 @@
-import React from "react";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 import { Row, Col, Container } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Form, useNavigate, useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const FormOrders = () => {
+	const { id } = useParams();
+	const [orders, setOrders] = useState([]);
+	const [sudahDikirim, setSudahDikirim] = useState([]);
+	const [dikirimTanggal, setDikirimTanggal] = useState([]);
+	const navigate = useNavigate();
+	useEffect(() => {
+		getOrders();
+	}, []);
+	const getOrders = async () => {
+		const response = await axios.get("http://localhost:3100/order/admin/get");
+		setOrders(response.data);
+	};
+	const updateStatus = async (e) => {
+		e.preventDefault();
+		try {
+			await axios.patch(`http://localhost:3100/order/update/${id}`, {
+				sudahDikirim: sudahDikirim,
+				dikirimTanggal: dikirimTanggal,
+			});
+			navigate("/admin/order");
+		} catch (error) {
+			if (error.response) {
+				console.log(error.response);
+			}
+		}
+	};
+
 	return (
 		<div>
 			<div className="mt-3">
 				<Container fluid>
-					<Col className="mt-3">
-						<hr />
-					</Col>
-					<button
-						className="h"
-						type="button"
-						class="btn btn-primary"
-						style={{
-							marginRight: 10,
-							marginLeft: 10,
-							marginTop: 10,
-							marginBottom: 10,
-							padding: 15,
-						}}>
-						Tambah Menu
-					</button>
-					<hr />
+					<Col className="mt-3"></Col>
+
 					<br></br>
 					<Card className="kocak" border="primary" style={{ width: "50rem" }}>
 						<h4>
-							<p>List Menus</p>
+							<p>Orderan Tertunda</p>
 							<hr />
 						</h4>
 						<Table striped>
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Nama Menu</th>
-									<th>Image Menu</th>
-									<th>Stok Menu</th>
-									<th>Harga Menu</th>
-									<th>Edit Button</th>
+									<th>Id Order</th>
+									<th>Total Harga</th>
+									<th>Total Items</th>
+									<th>Payment Type</th>
+									<th>Sudah Bayar ?</th>
+									<th>Button Update</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
-									<td>
-										<button className="h" type="button" class="btn btn-danger">
-											Edit Menu
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-									<td>
-										<button className="h" type="button" class="btn btn-primary">
-											Tambah Menu
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td colSpan={2}>Larry the Bird</td>
-									<td>@twitter</td>
-									<td>
-										<button className="h" type="button" class="btn btn-primary">
-											Tambah Menu
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td colSpan={2}>Larry the Bird</td>
-									<td>@twitter</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td colSpan={2}>Larry the Bird</td>
-									<td>@twitter</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td colSpan={2}>Larry the Bird</td>
-									<td>@twitter</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td colSpan={2}>Larry the Bird</td>
-									<td>@twitter</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td colSpan={2}>Larry the Bird</td>
-									<td>@twitter</td>
-								</tr>
+								{orders.map((kocak, index) => (
+									<tr>
+										<td>{index + 1}</td>
+										<td>{kocak.uuid}</td>
+										<td>{kocak.total_price}</td>
+										<td>{kocak.jumlah_items}</td>
+										<td>{kocak.payment_type}</td>
+										<td>{kocak.sudahBayar}</td>
+										<td>
+											<Button
+												className="h"
+												href={"/admin/order/update/" + kocak.uuid}
+												type="button"
+												class="btn btn-success">
+												Update Pesanan
+											</Button>
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</Table>
 					</Card>

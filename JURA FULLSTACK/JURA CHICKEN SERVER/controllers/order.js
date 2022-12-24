@@ -32,6 +32,36 @@ export const countOrders = async (req, res) => {
 	}
 };
 
+export const getAdminOrders = async (req, res) => {
+	try {
+		let response;
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
+		const attributes = [
+			"uuid",
+			"total_price",
+			"jumlah_items",
+			"details",
+			"total_unique_items",
+			"payment_type",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"dikirimTanggal",
+		];
+		response = await order_details.findAll({
+			where: {
+				sudahBayar: "true",
+				sudahDikirim: "false",
+			},
+			attributes: attributes,
+			include: [{ model: user_jura, attributes: useratt }],
+		});
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
+};
+
 export const getOrders = async (req, res) => {
 	try {
 		let response;
@@ -160,28 +190,24 @@ export const createOrders = async (req, res) => {
 export const updateOrders = async (req, res) => {
 	const update = await order_details.findOne({
 		where: {
-			JuraUuid: req.params.id,
+			uuid: req.params.id,
 		},
 	});
-	if (!update) return res.status(404).json({ msg: "Menu tidak ditemukan" });
-	const { uuid, sudahBayar, dibayarTanggal, sudahDikirim, dikirimTanggal } =
-		req.body;
+	if (!update) return res.status(404).json({ msg: "Ada" });
+	const { uuid, sudahDikirim, dikirimTanggal } = req.body;
 	try {
-		await menu_jura.update(
+		await order_details.update(
 			{
-				uuid: uuid,
-				sudahBayar: sudahBayar,
-				dibayarTanggal: dibayarTanggal,
 				sudahDikirim: sudahDikirim,
 				dikirimTanggal: dikirimTanggal,
 			},
 			{
 				where: {
-					JuraUuid: req.params.id,
+					uuid: req.params.id,
 				},
 			}
 		);
-		res.status(200).json({ msg: "Menu Updated" });
+		res.status(200).json({ msg: "deliver Updated" });
 	} catch (error) {
 		res.status(400).json({ msg: error.message });
 	}

@@ -8,11 +8,13 @@ import {
 	deleteOrders,
 	countOrders,
 	sumOrders,
+	getAdminOrders,
 } from "../controllers/order.js";
 import { verifyUser, adminOnly } from "../middleware/authUser.js";
 
 const router = express.Router();
 
+router.get("/order/admin/get", getAdminOrders);
 router.get("/order/get", getOrders);
 router.get("/order/sum/all", sumOrders);
 router.get("/order/count/all", countOrders);
