@@ -188,12 +188,12 @@ export default function Sampai() {
 																</MDBCardText>
 																<MDBCol>
 																	<MDBCardText>
-																		Kami Sedang Menyelesaikan Pengiriman
+																		Order Anda Sudah Sampai Ketujuan
 																	</MDBCardText>
 																	<span
 																		class="badge badge-primary mb-1"
 																		id="ggwp">
-																		{"Estimasi Sampai 1-3 hari"}
+																		{"Mohon Konfirmasi Kepada Kami"}
 																		{}
 																	</span>
 																</MDBCol>

@@ -15,7 +15,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-export default function OrderFour() {
+export default function Done() {
 	const [datas, setDatas] = useState([""]);
 	const { id } = useParams();
 	const [orders, setOrders] = useState([""]);

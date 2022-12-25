@@ -31,6 +31,36 @@ export const countOrders = async (req, res) => {
 		res.status(500).json({ msg: error.message });
 	}
 };
+export const getAdminDeliver = async (req, res) => {
+	try {
+		let response;
+		const useratt = ["uuid", "nama_user", "alamat", "kabupaten", "kode_pos"];
+		const attributes = [
+			"uuid",
+			"total_price",
+			"jumlah_items",
+			"details",
+			"total_unique_items",
+			"payment_type",
+			"sudahBayar",
+			"dibayarTanggal",
+			"sudahDikirim",
+			"kirim_kapan",
+		];
+		response = await order_details.findAll({
+			where: {
+				sudahBayar: "true",
+				sudahDikirim: "true",
+				sampai: "false",
+			},
+			attributes: attributes,
+			include: [{ model: user_jura, attributes: useratt }],
+		});
+		res.status(200).json(response);
+	} catch (error) {
+		res.status(500).json({ msg: error.message });
+	}
+};
 
 export const getAdminOrders = async (req, res) => {
 	try {
@@ -46,7 +76,7 @@ export const getAdminOrders = async (req, res) => {
 			"sudahBayar",
 			"dibayarTanggal",
 			"sudahDikirim",
-			"dikirimTanggal",
+			"kirim_kapan",
 		];
 		response = await order_details.findAll({
 			where: {
@@ -76,7 +106,7 @@ export const getOrders = async (req, res) => {
 			"sudahBayar",
 			"dibayarTanggal",
 			"sudahDikirim",
-			"dikirimTanggal",
+			"kirim_kapan",
 		];
 		response = await order_details.findAll({
 			attributes: attributes,
@@ -104,7 +134,7 @@ export const getOrderId = async (req, res) => {
 			"sudahBayar",
 			"dibayarTanggal",
 			"sudahDikirim",
-			"dikirimTanggal",
+			"kirim_kapan",
 		];
 		response = await order_details.findOne({
 			where: {
@@ -133,7 +163,7 @@ export const getAllOrderId = async (req, res) => {
 			"sudahBayar",
 			"dibayarTanggal",
 			"sudahDikirim",
-			"dikirimTanggal",
+			"kirim_kapan",
 			"response_midtrans",
 		];
 		response = await order_details.findAll({
@@ -160,7 +190,7 @@ export const createOrders = async (req, res) => {
 		sudahBayar,
 		dibayarTanggal,
 		sudahDikirim,
-		dikirimTanggal,
+		kirim_kapan,
 		response_midtrans,
 		userJuraUuid,
 	} = req.body;
@@ -175,7 +205,7 @@ export const createOrders = async (req, res) => {
 			sudahBayar: sudahBayar,
 			dibayarTanggal: dibayarTanggal,
 			sudahDikirim: sudahDikirim,
-			dikirimTanggal: dikirimTanggal,
+			kirim_kapan: kirim_kapan,
 			response_midtrans: response_midtrans,
 			userJuraUuid: userJuraUuid,
 		});
@@ -192,13 +222,29 @@ export const updateOrders = async (req, res) => {
 		},
 	});
 	if (!update) return res.status(404).json({ msg: "Ada" });
-	const { uuid, sudahDikirim, dikirimTanggal } = req.body;
+	const {
+		uuid,
+		sudahDikirim,
+		kirim_kapan,
+		sudahBayar,
+		sampai,
+		dibayarTanggal,
+		sampai_tanggal,
+		order_complete,
+		order_complete_tanggal,
+	} = req.body;
 	try {
 		await order_details.update(
 			{
 				uuid: uuid,
 				sudahDikirim: sudahDikirim,
-				dikirimTanggal: dikirimTanggal,
+				kirim_kapan: kirim_kapan,
+				sudahBayar: sudahBayar,
+				sampai: sampai,
+				dibayarTanggal: dibayarTanggal,
+				sampai_tanggal: sampai_tanggal,
+				order_complete: order_complete,
+				order_complete_tanggal: order_complete_tanggal,
 			},
 			{
 				where: {

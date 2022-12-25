@@ -9,11 +9,13 @@ import {
 	countOrders,
 	sumOrders,
 	getAdminOrders,
+	getAdminDeliver,
 } from "../controllers/order.js";
 import { verifyUser, adminOnly } from "../middleware/authUser.js";
 
 const router = express.Router();
 
+router.get("/order/admin/get/deliver", getAdminDeliver);
 router.get("/order/admin/get", getAdminOrders);
 router.get("/order/get", getOrders);
 router.get("/order/sum/all", sumOrders);

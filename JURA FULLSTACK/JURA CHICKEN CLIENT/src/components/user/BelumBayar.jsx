@@ -14,11 +14,15 @@ import {
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function BelumBayar() {
 	const [datas, setDatas] = useState([""]);
 	const { id } = useParams();
 	const [orders, setOrders] = useState([""]);
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		getAllOrdersId();
@@ -46,7 +50,25 @@ export default function BelumBayar() {
 			response_midtrans: orders.response_midtrans,
 		},
 	];
-	console.log(datas);
+
+	const updateStatus = async (e) => {
+		e.preventDefault();
+		try {
+			await axios.patch(`http://localhost:3100/order/update/` + id, {
+				dibayarTanggal: c,
+				sudahBayar: b,
+			});
+			window.location.reload();
+		} catch (error) {
+			if (error.response) {
+				// setMsg(error.response.data.msg);
+				// console.log(msg);
+			}
+		}
+	};
+	const b = "true";
+	const c = new Date().toJSON();
+
 	return (
 		<>
 			{hehehe.map((kocak, index) => (
@@ -189,13 +211,14 @@ export default function BelumBayar() {
 																		</MDBCol>
 																	</div>
 																</MDBCardText>
-																<Button
-																	size="sm"
-																	type="submit"
-																	className="ggm"
-																	href={"/order/status/" + kocak.uuid}>
-																	<a>Bayar Sekarang</a>
-																</Button>
+																<Form onSubmit={updateStatus}>
+																	<Button
+																		size="sm"
+																		type="submit"
+																		className="ggm">
+																		<a>Bayar Sekarang</a>
+																	</Button>
+																</Form>
 															</>
 														</MDBCardBody>
 													</div>

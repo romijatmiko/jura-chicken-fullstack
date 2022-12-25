@@ -22,10 +22,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { CartProvider } from "react-use-cart";
 import Alamat from "./pages/user/orderAddres";
 import { FooterJura } from "./components/user/FooterJura";
-import OrderStatus from "./pages/user/orderStatus";
+
 import SuccesPage from "./pages/user/orderSuccesPage";
 import Wow from "./components/user/createOrderLoading";
-import OrderUpdate from "./components/admin/OrderUpdate";
+import OrderUpdate from "./components/admin/OrderUpdate.jsx";
+import FormDeliverOrder from "./components/admin/FormDeliverOrder";
+import OrderDelivered from "./components/admin/OrderDelivered";
+import HeaderJura from "./components/admin/HeaderJura";
+import BelumBayar from "./components/user/BelumBayar";
+import SudahBayar from "./components/user/SudahBayar";
+import SudahDikirim from "./components/user/SudahDikirim";
+import Sampai from "./components/user/Sampai";
+import Done from "./components/user/Done";
 
 function App() {
 	const { isSuccess } = useSelector((state) => state.auth);
@@ -89,10 +97,27 @@ function App() {
 					}
 				/>
 				<Route
+					path="/admin/orders/delivery"
+					element={
+						<PrivateRouter>
+							<HeaderJura />
+							<FormDeliverOrder />
+						</PrivateRouter>
+					}
+				/>
+				<Route
 					path="/admin/order/update/:id"
 					element={
 						<PrivateRouter>
 							<OrderUpdate />
+						</PrivateRouter>
+					}
+				/>
+				<Route
+					path="/admin/order/deliver/:id"
+					element={
+						<PrivateRouter>
+							<OrderDelivered />
 						</PrivateRouter>
 					}
 				/>
@@ -165,18 +190,7 @@ function App() {
 						</UserRoute>
 					}
 				/>
-				<Route
-					path="/order/status/:id"
-					element={
-						<UserRoute>
-							<CartProvider>
-								<NavbarJura />
-								<OrderStatus />
-							</CartProvider>
-							<FooterJura />
-						</UserRoute>
-					}
-				/>
+
 				<Route
 					path="/order/done/:id"
 					element={
@@ -194,6 +208,57 @@ function App() {
 							<CartProvider>
 								<Wow />
 							</CartProvider>
+						</UserRoute>
+					}
+				/>
+
+				<Route
+					path="/order/status/belum_bayar/:id"
+					element={
+						<UserRoute>
+							<NavbarJura />
+							<BelumBayar />
+							<FooterJura />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/status/sudah_bayar/:id"
+					element={
+						<UserRoute>
+							<NavbarJura />
+							<SudahBayar />
+							<FooterJura />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/status/dikirim/:id"
+					element={
+						<UserRoute>
+							<NavbarJura />
+							<SudahDikirim />
+							<FooterJura />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/status/order_sampai/:id"
+					element={
+						<UserRoute>
+							<NavbarJura />
+							<Sampai />
+							<FooterJura />
+						</UserRoute>
+					}
+				/>
+				<Route
+					path="/order/status/complete/:id"
+					element={
+						<UserRoute>
+							<NavbarJura />
+							<Done />
+							<FooterJura />
 						</UserRoute>
 					}
 				/>

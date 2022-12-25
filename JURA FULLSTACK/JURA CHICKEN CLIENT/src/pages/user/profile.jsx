@@ -30,6 +30,7 @@ export default function Profile() {
 	const [kode_pos, setKode_pos] = useState("");
 	const [msg, setMsg] = useState("");
 	const { id } = useParams();
+	const yes = "true";
 
 	useEffect(() => {
 		const user = async () => {
@@ -220,14 +221,47 @@ export default function Profile() {
 															</MDBCol>
 														</div>
 													</MDBCardText>
-
-													<Button
-														size="sm"
-														type="submit"
-														className="ggm"
-														href={"/order/status/" + kocak.uuid}>
-														<a>See Details</a>
-													</Button>
+													{kocak.orders_complete == yes ? (
+														<Button
+															size="sm"
+															type="submit"
+															className="ggm"
+															href={"/order/status/complete/" + kocak.uuid}>
+															<a>See Details</a>
+														</Button>
+													) : kocak.sudahDikirim == yes ? (
+														<Button
+															size="sm"
+															type="submit"
+															className="ggm"
+															href={"/order/status/dikirim/" + kocak.uuid}>
+															<a>See Details</a>
+														</Button>
+													) : kocak.sudahBayar == yes ? (
+														<Button
+															size="sm"
+															type="submit"
+															className="ggm"
+															href={"/order/status/sudah_bayar/" + kocak.uuid}>
+															<a>See Details</a>
+														</Button>
+													) : kocak.sampai == yes ? (
+														<Button
+															size="sm"
+															type="submit"
+															className="ggm"
+															href={"/order/status/order_sampai/" + kocak.uuid}>
+															<a>See Details</a>
+														</Button>
+													) : (
+														<Button
+															size="sm"
+															type="submit"
+															className="ggm"
+															href={"/order/status/belum_bayar/" + kocak.uuid}>
+															<a>See Details</a>
+														</Button>
+													)}
 												</>
 											))}
 										</MDBCardBody>

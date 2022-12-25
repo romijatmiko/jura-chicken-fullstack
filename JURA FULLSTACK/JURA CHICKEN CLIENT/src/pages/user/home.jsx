@@ -54,19 +54,7 @@ const HomeJura = () => {
 											</span>
 										</div>
 									</div>
-									<div class="lk">
-										<DropdownButton title="Filter Menu" variant="dark">
-											<Dropdown.Item href="#/action-1">
-												Filter berdasarkan harga
-											</Dropdown.Item>
-											<Dropdown.Item href="#/action-2">
-												Filter berdasarkan rating
-											</Dropdown.Item>
-											<Dropdown.Item href="#/action-3">
-												Filter berdasarkan total order
-											</Dropdown.Item>
-										</DropdownButton>
-									</div>
+									<div class="lk"></div>
 								</div>
 								{menus
 									.filter((menu_jura) => {

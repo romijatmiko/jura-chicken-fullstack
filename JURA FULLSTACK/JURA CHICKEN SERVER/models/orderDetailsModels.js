@@ -64,7 +64,7 @@ const orderDetailsModels = db.define(
 			type: Sequelize.STRING,
 			defaultValue: "false",
 		},
-		dikirimTanggal: {
+		kirim_kapan: {
 			type: "TIMESTAMP",
 			allowNull: true,
 		},

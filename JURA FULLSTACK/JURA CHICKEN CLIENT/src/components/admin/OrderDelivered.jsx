@@ -17,7 +17,7 @@ import {
 import { Button } from "react-bootstrap";
 import HeaderJura from "./HeaderJura";
 
-const Updates = () => {
+const OrderDelivered = () => {
 	const { id } = useParams();
 	const [orders, setOrders] = useState([]);
 	const navigate = useNavigate();
@@ -33,10 +33,10 @@ const Updates = () => {
 		e.preventDefault();
 		try {
 			await axios.patch(`http://localhost:3100/order/update/` + id, {
-				kirim_kapan: c,
-				sudahDikirim: b,
+				sampai_tanggal: c,
+				sampai: b,
 			});
-			navigate("/admin/orders");
+			navigate("/admin/orders/delivery");
 		} catch (error) {
 			if (error.response) {
 				setMsg(error.response.data.msg);
@@ -135,7 +135,7 @@ const Updates = () => {
 										</div>
 										<MDBCol>
 											<Form onSubmit={updateStatus}>
-												<Button type="submit">Deliver Pesanan</Button>
+												<Button type="submit">Click Pesanan Sampai</Button>
 											</Form>
 										</MDBCol>
 									</MDBCardBody>
@@ -148,4 +148,4 @@ const Updates = () => {
 		</div>
 	);
 };
-export default Updates;
+export default OrderDelivered;
