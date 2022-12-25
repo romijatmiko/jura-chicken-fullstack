@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import HeaderJura from "../../components/admin/HeaderJura";
 import Card from "react-bootstrap/Card";
+import { API_URL } from "../../url";
 
 const HomeScreen = () => {
 	const [orders, setOrders] = useState([]);
@@ -9,7 +10,7 @@ const HomeScreen = () => {
 		getOrders();
 	}, []);
 	const getOrders = async () => {
-		const response = await axios.get("http://localhost:3100/order/count/all");
+		const response = await axios.get(API_URL + "/order/count/all");
 		setOrders(response.data);
 	};
 
@@ -18,7 +19,7 @@ const HomeScreen = () => {
 		sumOrders();
 	}, []);
 	const sumOrders = async () => {
-		const response = await axios.get("http://localhost:3100/order/sum/all");
+		const response = await axios.get(API_URL + "/order/sum/all");
 		setSum(response.data);
 	};
 
@@ -27,7 +28,7 @@ const HomeScreen = () => {
 		countUsers();
 	}, []);
 	const countUsers = async () => {
-		const response = await axios.get("http://localhost:3100/users/count");
+		const response = await axios.get(API_URL + "/users/count");
 		setZ(response.data);
 	};
 	return (

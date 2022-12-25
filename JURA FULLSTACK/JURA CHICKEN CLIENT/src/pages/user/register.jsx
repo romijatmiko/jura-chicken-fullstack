@@ -8,6 +8,7 @@ import { Card } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useSelector, useDispatch } from "react-redux";
+import { API_URL } from "../../url";
 
 const Register = () => {
 	const [nama_user, setNama_user] = useState("");
@@ -27,7 +28,7 @@ const Register = () => {
 	const hehehe = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post("http://localhost:3100/users/add", {
+			await axios.post(API_URL + "/users/add", {
 				nama_user: nama_user,
 				email_user: email_user,
 				no_hp: no_hp,

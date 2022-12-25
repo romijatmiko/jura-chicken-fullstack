@@ -17,6 +17,7 @@ import {
 	MDBRow,
 	MDBTypography,
 } from "mdb-react-ui-kit";
+import { API_URL } from "../../url";
 
 function Alamat() {
 	const { isSucces, isLoading } = useSelector((state) => state.auth);
@@ -54,7 +55,7 @@ function Alamat() {
 	const createOrder = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post("http://localhost:3100/order/add", {
+			await axios.post(API_URL + "/order/add", {
 				total_price: total_price,
 				jumlah_items: jumlah_items,
 				total_unique_items: total_unique_items,

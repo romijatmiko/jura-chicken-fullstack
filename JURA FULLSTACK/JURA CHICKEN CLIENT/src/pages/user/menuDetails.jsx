@@ -9,6 +9,7 @@ import { Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import Modal from "react-bootstrap/Modal";
+import { API_URL } from "../../url";
 
 function MyVerticallyCenteredModal(props) {
 	return (
@@ -47,9 +48,7 @@ export const Details = () => {
 	useEffect(() => {
 		const getProductById = async () => {
 			try {
-				const response = await axios.get(
-					`http://localhost:3100/menu/get/${id}`
-				);
+				const response = await axios.get(API_URL + `/menu/get/${id}`);
 				setNama_menu(response.data.nama_menu);
 				setHarga_menu(response.data.harga_menu);
 				setStok(response.data.stok);

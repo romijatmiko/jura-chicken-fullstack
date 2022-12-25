@@ -5,6 +5,7 @@ import { Col, Container } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../../url";
 
 const Menu = () => {
 	const [menus, setMenus] = useState([]);
@@ -14,12 +15,12 @@ const Menu = () => {
 	}, []);
 
 	const getMenus = async () => {
-		const response = await axios.get("http://localhost:3100/menu/get");
+		const response = await axios.get(API_URL + "/menu/get");
 		setMenus(response.data);
 	};
 
 	const deleteMenu = async (menuId) => {
-		await axios.delete(`http://localhost:3100/menu/delete/${menuId}`);
+		await axios.delete(API_URL + `/menu/delete/${menuId}`);
 		getMenus();
 	};
 	return (

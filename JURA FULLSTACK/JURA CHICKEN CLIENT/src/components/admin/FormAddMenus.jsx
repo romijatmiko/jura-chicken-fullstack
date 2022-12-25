@@ -17,7 +17,7 @@ const FormAddMenus = () => {
 	const saveProduct = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post("http://localhost:3100/menu/add", {
+			await axios.post(API_URL + "/menu/add", {
 				nama_menu: nama_menu,
 				img: img,
 				deskripsi: deskripsi,

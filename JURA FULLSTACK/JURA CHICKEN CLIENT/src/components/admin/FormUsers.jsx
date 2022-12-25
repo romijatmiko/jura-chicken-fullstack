@@ -4,6 +4,7 @@ import { Col, Container } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../../url";
 
 const User = () => {
 	const [users, setUsers] = useState([]);
@@ -13,7 +14,7 @@ const User = () => {
 	}, []);
 
 	const getUsers = async () => {
-		const response = await axios.get("http://localhost:3100/users/get");
+		const response = await axios.get(API_URL + "/users/get");
 		setUsers(response.data);
 	};
 

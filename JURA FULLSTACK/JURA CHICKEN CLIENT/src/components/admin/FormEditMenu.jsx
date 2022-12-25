@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderJura from "./HeaderJura";
+import { API_URL } from "../../url";
 
 const FormEditMenu = () => {
 	const [nama_menu, setNama_menu] = useState("");
@@ -20,9 +21,7 @@ const FormEditMenu = () => {
 	useEffect(() => {
 		const getProductById = async () => {
 			try {
-				const response = await axios.get(
-					`http://localhost:3100/menu/get/${id}`
-				);
+				const response = await axios.get(API_URL + `/menu/get/${id}`);
 				setNama_menu(response.data.nama_menu);
 				setImg(response.data.img);
 				setDeskripsi(response.data.deskripsi);
@@ -41,7 +40,7 @@ const FormEditMenu = () => {
 	const updateProduct = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.patch(`http://localhost:3100/menu/update/${id}`, {
+			await axios.patch(API_URL + `/menu/update/${id}`, {
 				nama_menu: nama_menu,
 				img: img,
 				deskripsi: deskripsi,

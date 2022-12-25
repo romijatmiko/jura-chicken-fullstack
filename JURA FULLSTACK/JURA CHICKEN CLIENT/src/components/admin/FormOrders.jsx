@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { API_URL } from "../../url";
 
 const FormOrders = () => {
 	const { id } = useParams();
@@ -16,13 +17,13 @@ const FormOrders = () => {
 		getOrders();
 	}, []);
 	const getOrders = async () => {
-		const response = await axios.get("http://localhost:3100/order/admin/get");
+		const response = await axios.get(API_URL + "/order/admin/get");
 		setOrders(response.data);
 	};
 	const updateStatus = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.patch(`http://localhost:3100/order/update/${id}`, {
+			await axios.patch(API_URL + `/order/update/${id}`, {
 				sudahDikirim: sudahDikirim,
 				dikirimTanggal: dikirimTanggal,
 			});

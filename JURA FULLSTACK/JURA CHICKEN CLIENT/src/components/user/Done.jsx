@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { API_URL } from "../../url";
 
 export default function Done() {
 	const [datas, setDatas] = useState([""]);
@@ -24,7 +25,7 @@ export default function Done() {
 		getAllOrdersId();
 	}, []);
 	const getAllOrdersId = async () => {
-		const q = await axios.get("http://localhost:3100/order/get/" + id);
+		const q = await axios.get(API_URL + "/order/get/" + id);
 		setOrders(q.data);
 		setDatas(q.data[0]);
 	};

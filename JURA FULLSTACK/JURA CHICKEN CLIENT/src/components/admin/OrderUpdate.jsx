@@ -16,6 +16,7 @@ import {
 } from "mdb-react-ui-kit";
 import { Button } from "react-bootstrap";
 import HeaderJura from "./HeaderJura";
+import { API_URL } from "../../url";
 
 const Updates = () => {
 	const { id } = useParams();
@@ -26,13 +27,13 @@ const Updates = () => {
 		getOrders();
 	}, []);
 	const getOrders = async () => {
-		const response = await axios.get("http://localhost:3100/order/admin/get");
+		const response = await axios.get(API_URL + "/order/admin/get");
 		setOrders(response.data);
 	};
 	const updateStatus = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.patch(`http://localhost:3100/order/update/` + id, {
+			await axios.patch(API_URL + `/order/update/` + id, {
 				kirim_kapan: c,
 				sudahDikirim: b,
 			});

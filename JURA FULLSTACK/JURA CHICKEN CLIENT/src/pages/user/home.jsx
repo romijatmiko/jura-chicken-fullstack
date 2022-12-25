@@ -8,6 +8,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Loading from "../../components/loading";
 import Message from "../../components/error";
 import { useSelector } from "react-redux";
+import { API_URL } from "../../url";
 
 const HomeJura = () => {
 	const [search, setSearch] = useState("");
@@ -16,7 +17,7 @@ const HomeJura = () => {
 		getMenus();
 	}, []);
 	const getMenus = async () => {
-		const response = await axios.get("http://localhost:3100/menu/get");
+		const response = await axios.get(API_URL + "/menu/get");
 		setMenus(response.data);
 	};
 	const { isError, isLoading } = useSelector((state) => state.auth);

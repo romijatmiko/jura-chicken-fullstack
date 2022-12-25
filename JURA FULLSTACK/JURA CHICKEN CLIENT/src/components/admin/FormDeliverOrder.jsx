@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { API_URL } from "../../url";
 
 const FormDeliverOrder = () => {
 	const { id } = useParams();
@@ -16,9 +17,7 @@ const FormDeliverOrder = () => {
 		getOrders();
 	}, []);
 	const getOrders = async () => {
-		const response = await axios.get(
-			"http://localhost:3100/order/admin/get/deliver"
-		);
+		const response = await axios.get(API_URL + "/order/admin/get/deliver");
 		setOrders(response.data);
 	};
 

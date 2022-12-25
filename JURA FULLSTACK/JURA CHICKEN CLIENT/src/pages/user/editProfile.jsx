@@ -18,6 +18,7 @@ import { FooterJura } from "../../components/user/FooterJura";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { API_URL } from "../../url";
 
 export default function Profile() {
 	const [nama_user, setNama] = useState("");
@@ -32,9 +33,7 @@ export default function Profile() {
 	useEffect(() => {
 		const user = async () => {
 			try {
-				const response = await axios.get(
-					`http://localhost:3100/users/get/${id}`
-				);
+				const response = await axios.get(API_URL + `/users/get/${id}`);
 				setNama(response.data.nama_user);
 				setEmail_user(response.data.email_user);
 				setNo_hp(response.data.no_hp);

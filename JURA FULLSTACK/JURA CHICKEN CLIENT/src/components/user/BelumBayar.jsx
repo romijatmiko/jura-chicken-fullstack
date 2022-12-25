@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useNavigate, useLocation } from "react-router-dom";
+import { API_URL } from "../../url";
 
 export default function BelumBayar() {
 	const [datas, setDatas] = useState([""]);
@@ -28,7 +29,7 @@ export default function BelumBayar() {
 		getAllOrdersId();
 	}, []);
 	const getAllOrdersId = async () => {
-		const q = await axios.get("http://localhost:3100/order/get/" + id);
+		const q = await axios.get(API_URL + "/order/get/" + id);
 		setOrders(q.data);
 		setDatas(q.data[0]);
 	};
@@ -54,7 +55,7 @@ export default function BelumBayar() {
 	const updateStatus = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.patch(`http://localhost:3100/order/update/` + id, {
+			await axios.patch(API_URL + `/order/update/` + id, {
 				dibayarTanggal: c,
 				sudahBayar: b,
 			});
