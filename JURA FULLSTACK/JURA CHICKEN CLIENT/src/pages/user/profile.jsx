@@ -31,6 +31,7 @@ export default function Profile() {
 	const [msg, setMsg] = useState("");
 	const { id } = useParams();
 	const yes = "true";
+	const j = "true";
 
 	useEffect(() => {
 		const user = async () => {
@@ -63,7 +64,6 @@ export default function Profile() {
 		setOrder(q.data);
 	};
 
-	const { isError, isLoading } = useSelector((state) => state.auth);
 	return (
 		<section style={{ backgroundColor: "#FFFFFF" }}>
 			<NavbarJura />
@@ -221,15 +221,7 @@ export default function Profile() {
 															</MDBCol>
 														</div>
 													</MDBCardText>
-													{kocak.orders_complete == yes ? (
-														<Button
-															size="sm"
-															type="submit"
-															className="ggm"
-															href={"/order/status/complete/" + kocak.uuid}>
-															<a>See Details</a>
-														</Button>
-													) : kocak.sudahDikirim == yes ? (
+													{kocak.sudahDikirim === yes ? (
 														<Button
 															size="sm"
 															type="submit"
@@ -237,7 +229,7 @@ export default function Profile() {
 															href={"/order/status/dikirim/" + kocak.uuid}>
 															<a>See Details</a>
 														</Button>
-													) : kocak.sudahBayar == yes ? (
+													) : kocak.sudahBayar === yes ? (
 														<Button
 															size="sm"
 															type="submit"
@@ -245,7 +237,15 @@ export default function Profile() {
 															href={"/order/status/sudah_bayar/" + kocak.uuid}>
 															<a>See Details</a>
 														</Button>
-													) : kocak.sampai == yes ? (
+													) : kocak.orders_complete === yes ? (
+														<Button
+															size="sm"
+															type="submit"
+															className="ggm"
+															href={"/order/status/complete/" + kocak.uuid}>
+															<a>See Details</a>
+														</Button>
+													) : kocak.sampai === yes ? (
 														<Button
 															size="sm"
 															type="submit"

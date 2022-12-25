@@ -43,6 +43,10 @@ export const getAdminDeliver = async (req, res) => {
 			"total_unique_items",
 			"payment_type",
 			"sudahBayar",
+			"sampai",
+			"sampai_tanggal",
+			"order_complete",
+			"order_complete_tanggal",
 			"dibayarTanggal",
 			"sudahDikirim",
 			"kirim_kapan",
@@ -107,12 +111,14 @@ export const getOrders = async (req, res) => {
 			"dibayarTanggal",
 			"sudahDikirim",
 			"kirim_kapan",
+			"sampai",
+			"sampai_tanggal",
+			"order_complete",
+			"order_complete_tanggal",
 		];
 		response = await order_details.findAll({
 			attributes: attributes,
 			include: [{ model: user_jura, attributes: useratt }],
-			raw: true, // <----------- Magic is here
-			nest: true, // <----------- Magic is here
 		});
 		res.status(200).json(response);
 	} catch (error) {
@@ -135,6 +141,10 @@ export const getOrderId = async (req, res) => {
 			"dibayarTanggal",
 			"sudahDikirim",
 			"kirim_kapan",
+			"sampai",
+			"sampai_tanggal",
+			"order_complete",
+			"order_complete_tanggal",
 		];
 		response = await order_details.findOne({
 			where: {
@@ -164,6 +174,10 @@ export const getAllOrderId = async (req, res) => {
 			"dibayarTanggal",
 			"sudahDikirim",
 			"kirim_kapan",
+			"sampai",
+			"sampai_tanggal",
+			"order_complete",
+			"order_complete_tanggal",
 			"response_midtrans",
 		];
 		response = await order_details.findAll({

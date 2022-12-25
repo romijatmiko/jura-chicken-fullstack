@@ -86,11 +86,9 @@ export default function SudahDikirim() {
 													className="step0 active text-center"
 													id="step2"></li>
 												<li
-													className="step0 text-muted text-center"
+													className="step0 active text-center"
 													id="step3"></li>
-												<li
-													className="step0 text-muted text-end"
-													id="step4"></li>
+												<li className="step0 active text-end" id="step4"></li>
 											</ul>
 
 											<div className="d-flex justify-content-between mb-5">

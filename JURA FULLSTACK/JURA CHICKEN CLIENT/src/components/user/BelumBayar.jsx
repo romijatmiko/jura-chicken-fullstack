@@ -58,7 +58,7 @@ export default function BelumBayar() {
 				dibayarTanggal: c,
 				sudahBayar: b,
 			});
-			window.location.reload();
+			navigate("/");
 		} catch (error) {
 			if (error.response) {
 				// setMsg(error.response.data.msg);
