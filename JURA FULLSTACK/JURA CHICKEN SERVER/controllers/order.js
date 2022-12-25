@@ -106,7 +106,7 @@ export const getOrderId = async (req, res) => {
 			"sudahDikirim",
 			"dikirimTanggal",
 		];
-		response = await order_details.findAll({
+		response = await order_details.findOne({
 			where: {
 				uuid: req.params.id,
 			},
@@ -142,8 +142,6 @@ export const getAllOrderId = async (req, res) => {
 			},
 			attributes: attributes,
 			include: [{ model: user_jura, attributes: useratt }],
-			raw: true, // <----------- Magic is here
-			nest: true, // <----------- Magic is here
 		});
 		res.status(200).json(response);
 	} catch (error) {
@@ -198,6 +196,7 @@ export const updateOrders = async (req, res) => {
 	try {
 		await order_details.update(
 			{
+				uuid: uuid,
 				sudahDikirim: sudahDikirim,
 				dikirimTanggal: dikirimTanggal,
 			},

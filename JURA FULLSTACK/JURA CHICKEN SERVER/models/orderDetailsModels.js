@@ -58,6 +58,7 @@ const orderDetailsModels = db.define(
 		},
 		dibayarTanggal: {
 			type: "TIMESTAMP",
+			allowNull: true,
 		},
 		sudahDikirim: {
 			type: Sequelize.STRING,
@@ -65,13 +66,23 @@ const orderDetailsModels = db.define(
 		},
 		dikirimTanggal: {
 			type: "TIMESTAMP",
+			allowNull: true,
 		},
-		sudahSampai: {
+		sampai: {
 			type: Sequelize.STRING,
 			defaultValue: "false",
 		},
-		sampaiTanggal: {
+		sampai_tanggal: {
 			type: "TIMESTAMP",
+			allowNull: true,
+		},
+		order_complete: {
+			type: Sequelize.STRING,
+			defaultValue: "false",
+		},
+		order_complete_tanggal: {
+			type: "TIMESTAMP",
+			allowNull: true,
 		},
 		response_midtrans: {
 			type: Sequelize.TEXT,

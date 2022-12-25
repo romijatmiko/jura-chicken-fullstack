@@ -61,7 +61,6 @@ export default function Profile() {
 		const q = await axios.get("http://localhost:3100/order/get/all/" + id);
 		setOrder(q.data);
 	};
-	console.log(order);
 
 	const { isError, isLoading } = useSelector((state) => state.auth);
 	return (
